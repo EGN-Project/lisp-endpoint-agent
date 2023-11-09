@@ -1,6 +1,6 @@
 #### EGN Project
 
-<img src="./github/workflow.svg">
+<img width="400" src="./github/workflow.svg" />
 
 #### Authors
 

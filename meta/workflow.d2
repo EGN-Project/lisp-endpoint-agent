@@ -1,7 +1,3 @@
-# Connections.
-agentActivated -> blockchainConnection -> lispCodeDeployment -> codeExecution -> executionMonitoring
-blockchainConnection -> issueAnalysis -> traceback -> report
-
 # Definition of nodes.
 agentActivated: "Agent is deployed and activated"
 blockchainConnection: "Agent connects to the blockchain"
@@ -12,13 +8,14 @@ issueAnalysis: "If anything goes wrong, analyze the blockchain"
 traceback: "Trace back to the responsible party"
 report: "Report incident"
 
-# Connection labels.
+# Connections + labels.
 agentActivated -> blockchainConnection: "Step 1: Activation"
 blockchainConnection -> lispCodeDeployment: "Step 2: Connect to Blockchain"
 lispCodeDeployment -> codeExecution: "Step 3: Log and Execute Code"
 codeExecution -> executionMonitoring: "Step 4: Monitor Execution"
 executionMonitoring -> issueAnalysis: "Issue Detection"
 issueAnalysis -> traceback: "Step 5: Identify Offender"
+traceback -> report: "Step 6: Generate and Submit Report"
 
 # Tooltips.
 agentActivated: {tooltip: "The agent is deployed on the host and begins its operation."}

@@ -1,0 +1,56 @@
+# Connections.
+agentActivated -> blockchainConnection -> lispCodeDeployment -> codeExecution -> executionMonitoring
+blockchainConnection -> issueAnalysis -> traceback -> report
+
+# Definition of nodes.
+agentActivated: "Agent is deployed and activated"
+blockchainConnection: "Agent connects to the blockchain"
+lispCodeDeployment: "Agent receives Lisp code deployment, logs the event"
+codeExecution: "Starts executing the code on the machine"
+executionMonitoring: "Monitor code execution"
+issueAnalysis: "If anything goes wrong, analyze the blockchain"
+traceback: "Trace back to the responsible party"
+report: "Report incident"
+
+# Connection labels.
+agentActivated -> blockchainConnection: "Step 1: Activation"
+blockchainConnection -> lispCodeDeployment: "Step 2: Connect to Blockchain"
+lispCodeDeployment -> codeExecution: "Step 3: Log and Execute Code"
+codeExecution -> executionMonitoring: "Step 4: Monitor Execution"
+executionMonitoring -> issueAnalysis: "Issue Detection"
+issueAnalysis -> traceback: "Step 5: Identify Offender"
+
+# Tooltips.
+agentActivated: {tooltip: "The agent is deployed on the host and begins its operation."}
+blockchainConnection: {tooltip: "Establishes connection to the private blockchain network."}
+lispCodeDeployment: {tooltip: "Receives and logs the deployment of Lisp code. This might include information about the vendor who deployed the code, time & date, and more."}
+codeExecution: {tooltip: "Executes the deployed Lisp code on the machine."}
+issueAnalysis: {tooltip: "Analyzes the blockchain logs to investigate any issues."}
+traceback: {tooltip: "Identifies the source of the problematic code deployment."}
+report: {tooltip: "Generate report and submit to appropriate party (e.g. via e-mail, webhook, etc.)"}
+
+# Styling.
+blockchainConnection.style: {
+  fill: "#e8f5e9"
+  stroke: "#66bb6a"
+}
+
+lispCodeDeployment.style: {
+  fill: "#fff3e0"
+  stroke: "#ffa726"
+}
+
+codeExecution.style: {
+  fill: "#fce4ec"
+  stroke: "#ec407a"
+}
+
+issueAnalysis.style: {
+  fill: "#ede7f6"
+  stroke: "#7e57c2"
+}
+
+traceback.style: {
+  fill: "#ffebee"
+  stroke: "#ef5350"
+}

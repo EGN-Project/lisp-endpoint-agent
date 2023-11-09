@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" d2Version="v0.6.1-HEAD" preserveAspectRatio="xMidYMid meet" viewBox="0 0 778 1573"><svg id="d2-svg" class="d2-2977513698" width="778" height="1573" viewBox="-101 -118 778 1573"><rect x="-101.000000" y="-118.000000" width="778.000000" height="1573.000000" rx="0.000000" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
+.appendix-icon {
+	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
+}
+.d2-2977513698 .text-bold {
+	font-family: "d2-2977513698-font-bold";
+}
+@font-face {
+	font-family: d2-2977513698-font-bold;
+	src: url("data:application/font-woff;base64,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");
+}
+.d2-2977513698 .text-italic {
+	font-family: "d2-2977513698-font-italic";
+}
+@font-face {
+	font-family: d2-2977513698-font-italic;
+	src: url("data:application/font-woff;base64,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");
+}]]></style><style type="text/css"><![CDATA[.shape {
+  shape-rendering: geometricPrecision;
+  stroke-linejoin: round;
+}
+.connection {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blend {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+		.d2-2977513698 .fill-N1{fill:#0A0F25;}
+		.d2-2977513698 .fill-N2{fill:#676C7E;}
+		.d2-2977513698 .fill-N3{fill:#9499AB;}
+		.d2-2977513698 .fill-N4{fill:#CFD2DD;}
+		.d2-2977513698 .fill-N5{fill:#DEE1EB;}
+		.d2-2977513698 .fill-N6{fill:#EEF1F8;}
+		.d2-2977513698 .fill-N7{fill:#FFFFFF;}
+		.d2-2977513698 .fill-B1{fill:#0D32B2;}
+		.d2-2977513698 .fill-B2{fill:#0D32B2;}
+		.d2-2977513698 .fill-B3{fill:#E3E9FD;}
+		.d2-2977513698 .fill-B4{fill:#E3E9FD;}
+		.d2-2977513698 .fill-B5{fill:#EDF0FD;}
+		.d2-2977513698 .fill-B6{fill:#F7F8FE;}
+		.d2-2977513698 .fill-AA2{fill:#4A6FF3;}
+		.d2-2977513698 .fill-AA4{fill:#EDF0FD;}
+		.d2-2977513698 .fill-AA5{fill:#F7F8FE;}
+		.d2-2977513698 .fill-AB4{fill:#EDF0FD;}
+		.d2-2977513698 .fill-AB5{fill:#F7F8FE;}
+		.d2-2977513698 .stroke-N1{stroke:#0A0F25;}
+		.d2-2977513698 .stroke-N2{stroke:#676C7E;}
+		.d2-2977513698 .stroke-N3{stroke:#9499AB;}
+		.d2-2977513698 .stroke-N4{stroke:#CFD2DD;}
+		.d2-2977513698 .stroke-N5{stroke:#DEE1EB;}
+		.d2-2977513698 .stroke-N6{stroke:#EEF1F8;}
+		.d2-2977513698 .stroke-N7{stroke:#FFFFFF;}
+		.d2-2977513698 .stroke-B1{stroke:#0D32B2;}
+		.d2-2977513698 .stroke-B2{stroke:#0D32B2;}
+		.d2-2977513698 .stroke-B3{stroke:#E3E9FD;}
+		.d2-2977513698 .stroke-B4{stroke:#E3E9FD;}
+		.d2-2977513698 .stroke-B5{stroke:#EDF0FD;}
+		.d2-2977513698 .stroke-B6{stroke:#F7F8FE;}
+		.d2-2977513698 .stroke-AA2{stroke:#4A6FF3;}
+		.d2-2977513698 .stroke-AA4{stroke:#EDF0FD;}
+		.d2-2977513698 .stroke-AA5{stroke:#F7F8FE;}
+		.d2-2977513698 .stroke-AB4{stroke:#EDF0FD;}
+		.d2-2977513698 .stroke-AB5{stroke:#F7F8FE;}
+		.d2-2977513698 .background-color-N1{background-color:#0A0F25;}
+		.d2-2977513698 .background-color-N2{background-color:#676C7E;}
+		.d2-2977513698 .background-color-N3{background-color:#9499AB;}
+		.d2-2977513698 .background-color-N4{background-color:#CFD2DD;}
+		.d2-2977513698 .background-color-N5{background-color:#DEE1EB;}
+		.d2-2977513698 .background-color-N6{background-color:#EEF1F8;}
+		.d2-2977513698 .background-color-N7{background-color:#FFFFFF;}
+		.d2-2977513698 .background-color-B1{background-color:#0D32B2;}
+		.d2-2977513698 .background-color-B2{background-color:#0D32B2;}
+		.d2-2977513698 .background-color-B3{background-color:#E3E9FD;}
+		.d2-2977513698 .background-color-B4{background-color:#E3E9FD;}
+		.d2-2977513698 .background-color-B5{background-color:#EDF0FD;}
+		.d2-2977513698 .background-color-B6{background-color:#F7F8FE;}
+		.d2-2977513698 .background-color-AA2{background-color:#4A6FF3;}
+		.d2-2977513698 .background-color-AA4{background-color:#EDF0FD;}
+		.d2-2977513698 .background-color-AA5{background-color:#F7F8FE;}
+		.d2-2977513698 .background-color-AB4{background-color:#EDF0FD;}
+		.d2-2977513698 .background-color-AB5{background-color:#F7F8FE;}
+		.d2-2977513698 .color-N1{color:#0A0F25;}
+		.d2-2977513698 .color-N2{color:#676C7E;}
+		.d2-2977513698 .color-N3{color:#9499AB;}
+		.d2-2977513698 .color-N4{color:#CFD2DD;}
+		.d2-2977513698 .color-N5{color:#DEE1EB;}
+		.d2-2977513698 .color-N6{color:#EEF1F8;}
+		.d2-2977513698 .color-N7{color:#FFFFFF;}
+		.d2-2977513698 .color-B1{color:#0D32B2;}
+		.d2-2977513698 .color-B2{color:#0D32B2;}
+		.d2-2977513698 .color-B3{color:#E3E9FD;}
+		.d2-2977513698 .color-B4{color:#E3E9FD;}
+		.d2-2977513698 .color-B5{color:#EDF0FD;}
+		.d2-2977513698 .color-B6{color:#F7F8FE;}
+		.d2-2977513698 .color-AA2{color:#4A6FF3;}
+		.d2-2977513698 .color-AA4{color:#EDF0FD;}
+		.d2-2977513698 .color-AA5{color:#F7F8FE;}
+		.d2-2977513698 .color-AB4{color:#EDF0FD;}
+		.d2-2977513698 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><g id="agentActivated"><g class="shape" ><rect x="121.000000" y="0.000000" width="303.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="272.500000" y="38.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Agent is deployed and activated</text><title>The agent is deployed on the host and begins its operation.</title></g><g id="blockchainConnection"><g class="shape" ><rect x="117.000000" y="187.000000" width="312.000000" height="66.000000" stroke="#66bb6a" fill="#e8f5e9" style="stroke-width:2;" /></g><text x="273.000000" y="225.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Agent connects to the blockchain</text><title>Establishes connection to the private blockchain network.</title></g><g id="lispCodeDeployment"><g class="shape" ><rect x="112.000000" y="374.000000" width="447.000000" height="66.000000" stroke="#ffa726" fill="#fff3e0" style="stroke-width:2;" /></g><text x="335.500000" y="412.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Agent receives Lisp code deployment, logs the event</text><title>Receives and logs the deployment of Lisp code. This might include information about the vendor who deployed the code, time &amp; date, and more.</title></g><g id="codeExecution"><g class="shape" ><rect x="151.000000" y="561.000000" width="369.000000" height="66.000000" stroke="#ec407a" fill="#fce4ec" style="stroke-width:2;" /></g><text x="335.500000" y="599.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Starts executing the code on the machine</text><title>Executes the deployed Lisp code on the machine.</title></g><g id="executionMonitoring"><g class="shape" ><rect x="231.000000" y="748.000000" width="210.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="336.000000" y="786.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Monitor code execution</text></g><g id="issueAnalysis"><g class="shape" ><rect x="0.000000" y="935.000000" width="408.000000" height="66.000000" stroke="#7e57c2" fill="#ede7f6" style="stroke-width:2;" /></g><text x="204.000000" y="973.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">If anything goes wrong, analyze the blockchain</text><title>Analyzes the blockchain logs to investigate any issues.</title></g><g id="traceback"><g class="shape" ><rect x="41.000000" y="1122.000000" width="327.000000" height="66.000000" stroke="#ef5350" fill="#ffebee" style="stroke-width:2;" /></g><text x="204.500000" y="1160.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Trace back to the responsible party</text><title>Identifies the source of the problematic code deployment.</title></g><g id="report"><g class="shape" ><rect x="111.000000" y="1288.000000" width="186.000000" height="66.000000" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="204.000000" y="1326.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">Report incident</text><title>Generate report and submit to appropriate party (e.g. via e-mail, webhook, etc.)</title></g><g id="(agentActivated -&gt; blockchainConnection)[0]"><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 240.647457 66.973305 C 197.199997 114.300003 197.199997 138.699997 239.294915 184.553389" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(blockchainConnection -&gt; lispCodeDeployment)[0]"><path d="M 272.500000 254.500000 C 272.500000 301.299988 280.700012 325.700012 311.268656 371.180195" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(lispCodeDeployment -&gt; codeExecution)[0]"><path d="M 291.416989 440.722324 C 229.800003 488.299988 229.600006 512.700012 288.849128 559.035857" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(codeExecution -&gt; executionMonitoring)[0]"><path d="M 291.416989 627.722324 C 229.800003 675.299988 229.600006 699.700012 288.849128 746.035857" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(blockchainConnection -&gt; issueAnalysis)[0]"><path d="M 200.439417 253.349581 C 98.250000 301.299988 72.250000 332.200012 72.250000 360.250000 C 72.250000 388.299988 72.250000 425.700012 72.250000 453.750000 C 72.250000 481.799988 72.250000 519.200012 72.250000 547.250000 C 72.250000 575.299988 72.250000 612.700012 72.250000 640.750000 C 72.250000 668.799988 72.250000 706.200012 72.250000 734.250000 C 72.250000 762.299988 89.050003 886.700012 153.013390 933.149605" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(issueAnalysis -&gt; traceback)[0]"><path d="M 183.254662 1002.234734 C 156.250000 1049.300049 156.250000 1073.699951 182.259324 1119.030532" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(traceback -&gt; report)[0]"><path d="M 204.000000 1190.000000 C 204.000000 1228.000000 204.000000 1248.000000 204.000000 1284.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /></g><g id="(agentActivated -&gt; blockchainConnection)[1]"><path d="M 272.500000 67.500000 C 272.500000 114.300003 272.500000 138.699997 272.500000 183.500000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /><text x="272.500000" y="132.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Step 1: Activation</text></g><g id="(blockchainConnection -&gt; lispCodeDeployment)[1]"><path d="M 318.604685 253.693728 C 382.600006 301.299988 390.799988 325.700012 360.231344 371.180195" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /><text x="383.500000" y="308.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Step 2: Connect to Blockchain</text></g><g id="(lispCodeDeployment -&gt; codeExecution)[1]"><path d="M 358.865672 441.159902 C 390.549988 488.299988 390.549988 512.700012 359.981344 558.180195" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /><text x="391.000000" y="506.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Step 3: Log and Execute Code</text></g><g id="(codeExecution -&gt; executionMonitoring)[1]"><path d="M 357.016507 628.222415 C 384.799988 675.299988 384.799988 699.700012 358.033014 745.055170" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /><text x="384.500000" y="693.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Step 4: Monitor Execution</text></g><g id="(executionMonitoring -&gt; issueAnalysis)[0]"><path d="M 335.750000 815.500000 C 335.750000 862.299988 318.950012 886.700012 254.986610 933.149606" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /><text x="317.500000" y="894.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Issue Detection</text></g><g id="(issueAnalysis -&gt; traceback)[1]"><path d="M 224.745338 1002.234734 C 251.750000 1049.300049 251.750000 1073.699951 225.740676 1119.030532" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-2977513698)" /><text x="251.500000" y="1067.000000" class="text-italic fill-N2" style="text-anchor:middle;font-size:16px">Step 5: Identify Offender</text></g><g transform="translate(408 -16)" class="appendix-icon"><title>The agent is deployed on the host and begins its operation.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(413 171)" class="appendix-icon"><title>Establishes connection to the private blockchain network.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(543 358)" class="appendix-icon"><title>Receives and logs the deployment of Lisp code. This might include information about the vendor who deployed the code, time &amp; date, and more.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(504 545)" class="appendix-icon"><title>Executes the deployed Lisp code on the machine.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(392 919)" class="appendix-icon"><title>Analyzes the blockchain logs to investigate any issues.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(352 1106)" class="appendix-icon"><title>Identifies the source of the problematic code deployment.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(281 1272)" class="appendix-icon"><title>Generate report and submit to appropriate party (e.g. via e-mail, webhook, etc.)</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3427_35082111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3427_35082111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><mask id="d2-2977513698" maskUnits="userSpaceOnUse" x="-101" y="-118" width="778" height="1573">
+<rect x="-101" y="-118" width="778" height="1573" fill="white"></rect>
+<rect x="159.500000" y="22.500000" width="226" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="155.500000" y="209.500000" width="235" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="150.500000" y="396.500000" width="370" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="189.500000" y="583.500000" width="292" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="253.500000" y="770.500000" width="165" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="38.500000" y="957.500000" width="331" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="79.500000" y="1144.500000" width="250" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="149.500000" y="1310.500000" width="109" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="216.000000" y="116.000000" width="113" height="21" fill="black"></rect>
+<rect x="287.000000" y="292.000000" width="193" height="21" fill="black"></rect>
+<rect x="295.000000" y="490.000000" width="192" height="21" fill="black"></rect>
+<rect x="302.000000" y="677.000000" width="165" height="21" fill="black"></rect>
+<rect x="268.000000" y="878.000000" width="99" height="21" fill="black"></rect>
+<rect x="172.000000" y="1051.000000" width="159" height="21" fill="black"></rect>
+</mask></svg></svg>

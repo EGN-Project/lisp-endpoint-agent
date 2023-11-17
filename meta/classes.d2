@@ -1,8 +1,7 @@
 # Class definitions.
 Blockchain: {
   shape: class
-  deployments: "[]Deployment"
-  revocations: "[]Revocation"
+  transactions: "[]Transaction"
   deploy(deployment Deployment): bool
   revoke(revocation Revocation): bool
   getDeploymentById(id sha256): "Deployment?"
@@ -21,7 +20,7 @@ Transaction: {
 
 Deployment: {
   shape: class
-  code: LispCode
+  payload: LispCode
   comment: "string[256]?"
 }
 
@@ -31,7 +30,7 @@ Revocation: {
   reason: "string[256]"
 }
 
-Agent: {
+Agent: "EndpointAgent" {
   shape: class
   connect(): bool
   disconnect(): void
@@ -40,7 +39,9 @@ Agent: {
 Listener: {
   shape: class
   listen(): void
+  notify(transaction Transaction): void
   execute(deployment Deployment): bool
+  revoke(revocation Revocation): bool
 }
 
 Publisher: {
@@ -51,7 +52,7 @@ Publisher: {
 }
 
 # Connections.
-Deployment -> Blockchain: {
+Blockchain -> Transaction: {
   target-arrowhead: {
     shape: diamond
     style: {
@@ -60,7 +61,7 @@ Deployment -> Blockchain: {
   }
 }
 
-Blockchain -> Agent: {
+Agent -> Blockchain: {
   target-arrowhead: {
     shape: diamond
     style: {

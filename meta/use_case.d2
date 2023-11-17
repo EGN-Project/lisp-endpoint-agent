@@ -1,0 +1,47 @@
+# Actors.
+vendor: "Vendor\n(primary)" {shape: person}
+admin: "Company admin\n(secondary)" {shape: person}
+agent: "Endpoint agent\n(secondary)" {shape: person}
+
+# External events.
+problem_detected: "Problem detected"
+culprit_found: "Culprit found"
+execute: "Execute new code deployment"
+
+# Blockchain & blockchain events.
+blockchain: "Blockchain" {
+  search_logs: "Search logs"
+  listen: "Listen"
+  new_log_published: "New log was published"
+  download_log: "Download log"
+  deploy: "Deploy"
+  publish_log: "Push and publish log"
+}
+
+# Connections.
+admin -- problem_detected
+agent -- blockchain.listen
+
+problem_detected -> blockchain.search_logs: "<<include>>" {
+  style: {
+    stroke-dash: 5
+  }
+}
+
+blockchain.search_logs -> culprit_found: "<<include>>" {
+  style: {
+    stroke-dash: 5
+  }
+}
+
+blockchain.listen -> blockchain.new_log_published -> blockchain.download_log -> execute: "<<include>>" {
+  style: {
+    stroke-dash: 5
+  }
+}
+
+vendor -- blockchain.deploy -> blockchain.publish_log: "<<include>>" {
+  style: {
+    stroke-dash: 5
+  }
+}

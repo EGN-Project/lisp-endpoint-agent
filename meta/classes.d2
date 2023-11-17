@@ -1,0 +1,106 @@
+# Class definitions.
+Blockchain: {
+  shape: class
+  deployments: "[]Deployment"
+  revocations: "[]Revocation"
+  deploy(deployment Deployment): bool
+  revoke(revocation Revocation): bool
+  getDeploymentById(id sha256): "Deployment?"
+  getRevocationById(id sha256): "Revocation?"
+  verifyDeployment(deployment Deployment): bool
+  verifyRevocation(revocation Revocation): bool
+}
+
+Transaction: {
+  shape: class
+  id: sha256
+  authorId: PublicKey
+  time: timestamp
+  validate(): bool
+}
+
+Deployment: {
+  shape: class
+  code: LispCode
+  comment: "string[256]?"
+}
+
+Revocation: {
+  shape: class
+  targetDeploymentId: sha256
+  reason: "string[256]"
+}
+
+Agent: {
+  shape: class
+  connect(): bool
+  disconnect(): void
+}
+
+Listener: {
+  shape: class
+  listen(): void
+  execute(deployment Deployment): bool
+}
+
+Publisher: {
+  shape: class
+  vendorId: PublicKey
+  publish(deployment Deployment): void
+  revoke(deploymentId sha256): bool
+}
+
+# Connections.
+Deployment -> Blockchain: {
+  target-arrowhead: {
+    shape: diamond
+    style: {
+      filled: true
+    }
+  }
+}
+
+Blockchain -> Agent: {
+  target-arrowhead: {
+    shape: diamond
+    style: {
+      filled: true
+    }
+  }
+}
+
+Listener -> Agent: {
+  target-arrowhead: {
+    shape: triangle
+    style: {
+      filled: false
+    }
+  }
+}
+
+Publisher -> Agent: {
+  target-arrowhead: {
+    shape: triangle
+    style: {
+      filled: false
+    }
+  }
+}
+
+Deployment -> Transaction: {
+  target-arrowhead: {
+    shape: triangle
+    style: {
+      filled: false
+    }
+  }
+}
+
+Revocation -> Transaction: {
+  target-arrowhead: {
+    shape: triangle
+    style: {
+      filled: false
+    }
+  }
+}

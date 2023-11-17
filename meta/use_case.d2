@@ -26,6 +26,7 @@ blockchain: "Blockchain" {
 # Connections.
 admin -- problem_detected
 agent -- blockchain.listen
+vendor -- blockchain.deploy
 
 problem_detected -> blockchain.search_deployments: "<<include>>" {
   style: {
@@ -45,7 +46,7 @@ blockchain.listen -> blockchain.new_deployment -> endpoint.download_deployment -
   }
 }
 
-vendor -- blockchain.deploy -> blockchain.verify_deployment -> blockchain.publish_deployment: "<<include>>" {
+blockchain.deploy -> blockchain.verify_deployment -> blockchain.publish_deployment: "<<include>>" {
   style: {
     stroke-dash: 5
   }

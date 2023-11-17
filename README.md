@@ -1,6 +1,10 @@
 #### EGN Project
 
-<img width="400" src="./github/workflow.svg" />
+### Use-case Diagram
+<img width="600" src="./github/use-case-diagram.svg" />
+
+### Class Diagram
+<img width="600" src="./github/class-diagram.svg" />
 
 #### Authors
 

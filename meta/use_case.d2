@@ -6,14 +6,18 @@ agent: "Endpoint agent\n(secondary)" {shape: person}
 # External events.
 problem_detected: "Problem detected"
 culprit_found: "Culprit found"
-execute: "Execute new code deployment"
+
+# Endpoint agent machine events.
+endpoint: "Endpoint Agent's Machine" {
+  download_deployment: "Download deployment"
+  execute: "Execute new code deployment"
+}
 
 # Blockchain & blockchain events.
 blockchain: "Blockchain" {
   search_deployments: "Search deployments"
   listen: "Connect & listen"
   new_deployment: "New deployment"
-  download_deployment: "Download deployment"
   deploy: "Attempt deployment"
   verify_deployment: "Verify deployment"
   publish_deployment: "Publish deployment"
@@ -35,7 +39,7 @@ blockchain.search_deployments -> culprit_found: "<<include>>" {
   }
 }
 
-blockchain.listen -> blockchain.new_deployment -> blockchain.download_deployment -> execute: "<<include>>" {
+blockchain.listen -> blockchain.new_deployment -> endpoint.download_deployment -> endpoint.execute: "<<include>>" {
   style: {
     stroke-dash: 5
   }

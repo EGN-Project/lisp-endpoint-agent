@@ -10,37 +10,38 @@ execute: "Execute new code deployment"
 
 # Blockchain & blockchain events.
 blockchain: "Blockchain" {
-  search_logs: "Search logs"
-  listen: "Listen"
-  new_log_published: "New log was published"
-  download_log: "Download log"
-  deploy: "Deploy"
-  publish_log: "Push and publish log"
+  search_deployments: "Search deployments"
+  listen: "Connect & listen"
+  new_deployment: "New deployment"
+  download_deployment: "Download deployment"
+  deploy: "Attempt deployment"
+  verify_deployment: "Verify deployment"
+  publish_deployment: "Publish deployment"
 }
 
 # Connections.
 admin -- problem_detected
 agent -- blockchain.listen
 
-problem_detected -> blockchain.search_logs: "<<include>>" {
+problem_detected -> blockchain.search_deployments: "<<include>>" {
   style: {
     stroke-dash: 5
   }
 }
 
-blockchain.search_logs -> culprit_found: "<<include>>" {
+blockchain.search_deployments -> culprit_found: "<<include>>" {
   style: {
     stroke-dash: 5
   }
 }
 
-blockchain.listen -> blockchain.new_log_published -> blockchain.download_log -> execute: "<<include>>" {
+blockchain.listen -> blockchain.new_deployment -> blockchain.download_deployment -> execute: "<<include>>" {
   style: {
     stroke-dash: 5
   }
 }
 
-vendor -- blockchain.deploy -> blockchain.publish_log: "<<include>>" {
+vendor -- blockchain.deploy -> blockchain.verify_deployment -> blockchain.publish_deployment: "<<include>>" {
   style: {
     stroke-dash: 5
   }

@@ -52,7 +52,7 @@ Publisher: {
 }
 
 # Connections.
-Blockchain -> Transaction: {
+Blockchain -> Transaction: "<<has a>>" {
   target-arrowhead: {
     shape: diamond
     style: {
@@ -61,7 +61,7 @@ Blockchain -> Transaction: {
   }
 }
 
-Agent -> Blockchain: {
+Agent -> Blockchain: "<<has a>>" {
   target-arrowhead: {
     shape: diamond
     style: {
@@ -70,7 +70,7 @@ Agent -> Blockchain: {
   }
 }
 
-Listener -> Agent: {
+Listener -> Agent: "<<is a>>" {
   target-arrowhead: {
     shape: triangle
     style: {
@@ -79,7 +79,7 @@ Listener -> Agent: {
   }
 }
 
-Publisher -> Agent: {
+Publisher -> Agent: "<<is a>>" {
   target-arrowhead: {
     shape: triangle
     style: {
@@ -88,7 +88,7 @@ Publisher -> Agent: {
   }
 }
 
-Deployment -> Transaction: {
+Deployment -> Transaction: "<<is a>>" {
   target-arrowhead: {
     shape: triangle
     style: {
@@ -97,7 +97,7 @@ Deployment -> Transaction: {
   }
 }
 
-Revocation -> Transaction: {
+Revocation -> Transaction: "<<is a>>" {
   target-arrowhead: {
     shape: triangle
     style: {

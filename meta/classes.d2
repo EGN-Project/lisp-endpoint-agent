@@ -30,7 +30,7 @@ Revocation: {
   reason: "string[256]"
 }
 
-Agent: "EndpointAgent" {
+Agent: "Node" {
   shape: class
   connect(): bool
   disconnect(): void
@@ -47,7 +47,7 @@ Listener: {
 Publisher: {
   shape: class
   vendorId: PublicKey
-  publish(deployment Deployment): void
+  publish(deployment Deployment): sha256
   revoke(deploymentId sha256): bool
 }
 

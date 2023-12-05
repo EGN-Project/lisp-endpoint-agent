@@ -18,10 +18,10 @@
 (defclass deployment (transaction)
   (code "")
   (comment "" :type (or string null)))
-  
+
 (defun calculate-hash (data)
   (ironclad:byte-array-to-hex-string
-   (ironclad:digest-sequence :sha256 (ironclad:ascii-string-to-byte-array data))))
+  (ironclad:digest-sequence :sha256 (ironclad:ascii-string-to-byte-array data))))
 
 (defun create-genesis-block ()
   (make-block :index 0
@@ -29,4 +29,3 @@
               :transactions '("Genesis Transaction")
               :previous-hash "0"
               :hash (calculate-hash "Genesis Block")))
-

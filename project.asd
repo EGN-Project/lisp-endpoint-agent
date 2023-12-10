@@ -11,6 +11,6 @@
 (asdf:defsystem #:quicklisp
   :version "0.1"
   :description "Quicklisp integration for the project"
-  :author "Your Name"
+  :author "Contributors"
   :license "MIT"
   :components ((:file "path-to-quicklisp-setup.lisp")))

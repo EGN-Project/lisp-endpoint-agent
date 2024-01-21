@@ -66,3 +66,43 @@
   (timestamp 0 :type fixnum)
   (code "")
   (comment "" :type (or string null)))
+
+(defclass smart-contract (transaction)
+  (code "")
+  (comment "" :type (or string null)))
+
+(defun deploy-smart-contract (author-id code comment)
+  "Deploy a new smart contract on the blockchain."
+  (let* ((timestamp (get-universal-time))
+         (contract-id (calculate-hash (format nil "~a~a~a" author-id timestamp code)))
+         (deployment-transaction (make-instance 'deployment-transaction
+                                               :id contract-id
+                                               :author-id author-id
+                                               :timestamp timestamp
+                                               :code code
+                                               :comment comment))
+         (smart-contract (make-instance 'smart-contract
+                                        :id contract-id
+                                        :author-id author-id
+                                        :timestamp timestamp
+                                        :code code
+                                        :comment comment)))
+    (setf *blockchain* (add-transaction deployment-transaction *blockchain*)) ; Assuming add-transaction is defined
+    (setf *blockchain* (add-transaction smart-contract *blockchain*))))
+
+
+    ;; Example usage
+(deploy-smart-contract "author123" "(define (add a b) (+ a b))" "Simple addition contract")
+
+;; You can now interact with the deployed smart contract by extending the code
+;; For example, add a function to invoke a method of the smart contract:
+(defun invoke-contract-method (contract method args)
+  "Invoke a method of a deployed smart contract."
+  ;; Add your logic to interact with the smart contract and execute the specified method
+  (format t "Invoking method ~a of smart contract ~a with args ~a~%" method (smart-contract-id contract) args))
+
+;; Example usage
+(let* ((contract (first *blockchain*)) ; Assuming the smart contract is the first transaction in the blockchain
+       (method "add")
+       (args '(3 5)))
+  (invoke-contract-method contract method args))

@@ -1,4 +1,4 @@
-# EGN Project
+# EGN Project 
 
 ### Functionality
 The platform is designed for real-time monitoring, employing signature-based detection and machine learning algorithms to identify both known and unknown security threats. It allows for dynamic updates to threat detection rules without the need for software updates. Additionally, the system logs all activities and generates detailed reports for review by engineers.

@@ -170,4 +170,11 @@ export class AssetTransferContract extends Contract {
         return JSON.stringify(allResults);
     }
 
+
+    @Transaction()
+    public async listener(void): Promise<void> {
+        //read all assets
+        const allAssets = await this.GetAllAssets(ctx); 
+    }
+
 }

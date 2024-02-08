@@ -11,7 +11,7 @@ export class Transaction {
     public ID: string;
 
     @Property()
-    public authorID: string;
+    public authorID: PublicKeyCredential;
 
     @Property()
     public time: Timestamp;

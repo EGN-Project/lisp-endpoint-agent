@@ -6,7 +6,10 @@ import {Object, Property} from 'fabric-contract-api';
 import { Timestamp } from 'fabric-shim';
 
 @Object()
-export class Transaction {
+export class Governance {
     @Property()
-    public vendorID: PublicKeyCredential;
+    public Address: PublicKeyCredential;
+
+    @Property()
+    public role: string;
 }

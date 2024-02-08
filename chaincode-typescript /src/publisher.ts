@@ -8,5 +8,5 @@ import { Timestamp } from 'fabric-shim';
 @Object()
 export class Transaction {
     @Property()
-    public vendorID: PublicKeyCredential;
+    public vendorID: PublicKeyCredentialType;
 }

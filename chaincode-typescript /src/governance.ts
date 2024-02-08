@@ -13,7 +13,7 @@ enum Role{
 @Object()
 export class Governance {
     @Property()
-    public address: PublicKeyCredential;
+    public address: PublicKeyCredentialType;
 
     @Property()
     public role: Role;

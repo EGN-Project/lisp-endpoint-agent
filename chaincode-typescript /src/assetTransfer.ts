@@ -67,7 +67,7 @@ export class AssetTransferContract extends Contract {
             console.info(`Asset ${asset.ID} initialized`);
         }
     }
-
+    
     // CreateAsset issues a new asset to the world state with given details.
     @Transaction()
     public async CreateAsset(ctx: Context, id: string, color: string, size: number, owner: string, appraisedValue: number): Promise<void> {

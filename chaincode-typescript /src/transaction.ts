@@ -3,16 +3,15 @@
 */
 
 import {Object, Property} from 'fabric-contract-api';
-import { Timestamp } from 'fabric-shim';
 
 @Object()
-export class Transaction {
+export class StoredTransaction {
     @Property()
     public ID: string;
 
     @Property()
-    public authorID: PublicKeyCredentialType;
+    public authorID: string;
 
     @Property()
-    public time: Timestamp;
+    public time: Date;
 }

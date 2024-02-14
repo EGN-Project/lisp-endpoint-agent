@@ -12,4 +12,7 @@ export class Revocation {
 
     @Property()
     public reason: string;
+
+    @Property()
+    public RevocationID: string;
 }

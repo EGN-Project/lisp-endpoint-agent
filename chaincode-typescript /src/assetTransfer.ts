@@ -5,7 +5,7 @@
 import {Context, Contract, Info, Returns, Transaction} from 'fabric-contract-api';
 import stringify from 'json-stringify-deterministic';
 import sortKeysRecursive from 'sort-keys-recursive';
-import {Asset} from './transaction';
+import {Asset} from './transactionLog';
 
 @Info({title: 'AssetTransfer', description: 'Smart contract for trading assets'})
 export class AssetTransferContract extends Contract {
@@ -67,7 +67,7 @@ export class AssetTransferContract extends Contract {
             console.info(`Asset ${asset.ID} initialized`);
         }
     }
-
+    
     // CreateAsset issues a new asset to the world state with given details.
     @Transaction()
     public async CreateAsset(ctx: Context, id: string, color: string, size: number, owner: string, appraisedValue: number): Promise<void> {

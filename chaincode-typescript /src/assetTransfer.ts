@@ -5,7 +5,7 @@
 import {Context, Contract, Info, Returns, Transaction} from 'fabric-contract-api';
 import stringify from 'json-stringify-deterministic';
 import sortKeysRecursive from 'sort-keys-recursive';
-import {Asset} from './transactionLog';
+import { Revocation } from './revocation';
 
 @Info({title: 'AssetTransfer', description: 'Smart contract for trading assets'})
 export class AssetTransferContract extends Contract {
@@ -178,3 +178,41 @@ export class AssetTransferContract extends Contract {
     }
 
 }
+
+//Revoke deployment of the contract
+@Transaction(true)
+export async function RevokeDeployment(ctx: Context, targetDeploymentID: string, reason: string): Promise<void> {
+    const exists = await this.AssetExists(ctx, targetDeploymentID);
+    if (!exists) {
+        throw new Error(`The deployment ${targetDeploymentID} does not exist`);
+    }
+    const revocation = {
+        targetDeploymentID,
+        reason,
+        RevocationID: ctx.stub.getTxID(),
+    };
+
+    // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
+    await ctx.stub.putState(targetDeploymentID, Buffer.from(stringify(sortKeysRecursive(revocation))));
+}
+
+//Get all revocations
+@Transaction(false)
+@Returns('string')
+export async function GetAllRevocations(ctx: Context): Promise<string> {
+
+    var revocations: Revocation[] = [];
+    
+    // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
+    const iterator = await ctx.stub.getStateByPartialCompositeKey('Revocation', []);
+    const asyncIterator = iterator[Symbol.asyncIterator]();
+
+    for await (const result of asyncIterator) {
+        const strValue = result.value.toString('utf8');
+        const revocation: Revocation = JSON.parse(strValue);
+        revocations.push(revocation);
+    }
+
+    return JSON.stringify(revocations);
+}
+

@@ -106,3 +106,36 @@
        (method "add")
        (args '(3 5)))
   (invoke-contract-method contract method args))
+
+
+
+
+;;Possioble interaction with hyperledger fabric ⌄ below
+
+
+;; Define a function to initiate a transaction on the blockchain
+(defun initiate-transaction (transaction-data)
+  "Initiates a transaction on the Hyperledger Fabric blockchain."
+  ;; Assuming you have a REST API endpoint for submitting transactions
+  (let* ((url "http://hyperledger-fabric/api/transactions")
+         (request (drakma:http-request url
+                                        :method :post
+                                        :content-type "application/json"
+                                        :entity transaction-data)))
+    (if (equal (drakma:http-response-status request) 200)
+        (format t "Transaction successfully initiated.~%")
+        (format t "Error initiating transaction: ~a~%" (drakma:http-response-status request)))))
+
+;; Define a function to query all assets from the blockchain
+(defun query-all-assets ()
+  "Queries all assets from the Hyperledger Fabric blockchain."
+  ;; Assuming you have a REST API endpoint for querying assets
+  (let* ((url "http://hyperledger-fabric/api/assets")
+         (request (drakma:http-request url)))
+    (if (equal (drakma:http-response-status request) 200)
+        (format t "All assets queried successfully: ~a~%" (drakma:http-response-body-string request))
+        (format t "Error querying assets: ~a~%" (drakma:http-response-status request)))))
+
+;; Example usage
+(initiate-transaction "{\"id\": \"asset7\", \"color\": \"purple\", \"size\": 20, \"owner\": \"Alice\", \"appraisedValue\": 900}")
+(query-all-assets)

@@ -5,9 +5,9 @@
 import {Object, Property} from 'fabric-contract-api';
 
 @Object()
-export class StoredTransaction {
+export class TransactionLog {
     @Property()
-    public ID: string;
+    public transactionID: string;
 
     @Property()
     public authorID: string;

@@ -15,4 +15,7 @@ export class Deployment {
 
     @Property()
     public deploymentID: string;
+
+    @Property()
+    public offerID: string;
 }

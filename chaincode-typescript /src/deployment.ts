@@ -12,4 +12,10 @@ export class Deployment {
 
     @Property()
     public comment: string;
+
+    @Property()
+    public deploymentID: string;
+
+    @Property()
+    public offerID: string;
 }

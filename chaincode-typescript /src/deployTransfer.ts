@@ -87,8 +87,19 @@ export class DeployTransferContract extends Contract {
     // AssetExists returns true when asset with given ID exists in world state.
     @Transaction(false)
     @Returns('boolean')
-    public async ValidateDeployment(ctx: Context, id: string): Promise<boolean> {
-        const deploymentJSON = await ctx.stub.getState(id);
+    public async ValidateDeployment(ctx: Context, deploymentID: string): Promise<boolean> {
+        const deploymentJSON = await ctx.stub.getState(deploymentID);
         return deploymentJSON && deploymentJSON.length > 0;
+    }
+
+    @Transaction()
+    public async RemoveDeployment(ctx: Context, deploymentID: string): Promise<void>{
+        const deploymentExists = await this.ValidateDeployment(ctx, deploymentID);
+        if (!deploymentExists) {
+            throw new Error(`Deployment with ID ${deploymentID} does not exist`);
+        }
+
+        // Delete the deployment from the ledger
+        await ctx.stub.deleteState(deploymentID);
     }
 }

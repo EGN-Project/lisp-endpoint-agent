@@ -88,8 +88,8 @@ export class DeployTransferContract extends Contract {
     @Transaction(false)
     @Returns('boolean')
     public async ValidateDeployment(ctx: Context, id: string): Promise<boolean> {
-        const assetJSON = await ctx.stub.getState(id);
-        return assetJSON && assetJSON.length > 0;
+        const deploymentJSON = await ctx.stub.getState(id);
+        return deploymentJSON && deploymentJSON.length > 0;
     }
 
 

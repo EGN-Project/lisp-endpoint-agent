@@ -14,32 +14,32 @@ export class DeployTransferContract extends Contract {
     public async InitLedger(ctx: Context): Promise<void> {
         const deployment: Deployment[] = [
             {
-                offerID: '1111',
+                authorID: '1111',
                 deploymentID: '0000',
                 comment: 'Hello',
                 payload: 'sodjfo',
 
             },
             {
-                offerID: '2222',
+                authorID: '2222',
                 deploymentID: '9999',
                 comment: 'Hey',
                 payload: 'kajsnf',
             },
             {
-                offerID: '3333',
+                authorID: '3333',
                 deploymentID: '8888',
                 comment: 'Hi',
                 payload: 'khklhl',
             },
             {
-                offerID: '4444',
+                authorID: '4444',
                 deploymentID: '7777',
                 comment: 'Hola',
                 payload: 'nknjnk',
             },
             {
-                offerID: '5555',
+                authorID: '5555',
                 deploymentID: '6666',
                 comment: 'Aloha',
                 payload: 'lrterw',
@@ -58,8 +58,8 @@ export class DeployTransferContract extends Contract {
     
     // CreateAsset issues a new asset to the world state with given details.
     @Transaction()
-    public async Deployment(ctx: Context, offerID: string, comment: string, payload: string, deploymentID: string) : Promise<void> {
-        const exists = await this.AssetExists(ctx, deploymentID);
+    public async Deployment(ctx: Context, authorID: string, comment: string, payload: string, deploymentID: string) : Promise<void> {
+        const exists = await this.ValidateDeployment(ctx, deploymentID);
         if (exists) {
             throw new Error(`The asset ${deploymentID} already exists`);
         }
@@ -67,7 +67,7 @@ export class DeployTransferContract extends Contract {
         const deployment = {
             deploymentID: deploymentID,
             comment: comment,
-            offerID: offerID,
+            authorID: authorID,
             payload: payload
         };
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
@@ -91,7 +91,4 @@ export class DeployTransferContract extends Contract {
         const deploymentJSON = await ctx.stub.getState(id);
         return deploymentJSON && deploymentJSON.length > 0;
     }
-
-
-   
-
+}

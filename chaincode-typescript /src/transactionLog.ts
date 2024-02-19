@@ -14,4 +14,7 @@ export class TransactionLog {
 
     @Property()
     public time: Date;
+
+    @Property()
+    public description: string;
 }

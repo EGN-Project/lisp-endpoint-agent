@@ -35,11 +35,13 @@ export class TransactionLogTransferContract extends Contract {
                 transactionID: '1',
                 authorID: 'Bebo',
                 time: date,
+                description: "Example"
             },
             {
                 transactionID: '2',
                 authorID: 'Bebo',
-                time: date
+                time: date,
+                description: "Example"
             },
         ];
 
@@ -62,7 +64,7 @@ export class TransactionLogTransferContract extends Contract {
     }
 
     @Transaction()
-    public async CreateAsset(ctx: Context, ID: string, authorID: string, time: Date): Promise<void> {
+    public async CreateAsset(ctx: Context, ID: string, authorID: string, time: Date, description: string): Promise<void> {
         const exists = await this.TransactionExists(ctx, ID);
         if (exists) {
             throw new Error(`The asset ${ID} already exists`);
@@ -71,7 +73,8 @@ export class TransactionLogTransferContract extends Contract {
         const transactionLog = {
             transactionID: ID,
             authorID,
-            time: time
+            time: time,
+            description: description
         };
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
         await ctx.stub.putState(ID, Buffer.from(stringify(sortKeysRecursive(transactionLog))));

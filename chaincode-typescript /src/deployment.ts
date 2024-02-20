@@ -17,5 +17,5 @@ export class Deployment {
     public deploymentID: string;
 
     @Property()
-    public offerID: string;
+    public authorID: string;
 }

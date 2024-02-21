@@ -80,7 +80,7 @@ async function main(): Promise<void> {
         await getAllAssets(contract);
 
         // Create a new asset on the ledger.
-        await createAsset(contract);
+        //await createAsset(contract);
 
         // Update an existing asset asynchronously.
         await transferAssetAsync(contract);
@@ -137,10 +137,20 @@ async function initLedger(contract: Contract): Promise<void> {
 /**
  * Evaluate a transaction to query ledger state.
  */
-async function getAllAssets(contract: Contract): Promise<void> {
+async function getAllRevocations(contract: Contract): Promise<void> {
     console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
 
-    const resultBytes = await contract.evaluateTransaction('GetAllAssets');
+    const resultBytes = await contract.evaluateTransaction('GetAllRevocations');
+
+    const resultJson = utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+    console.log('*** Result:', result);
+}
+
+async function getAllTransactionLogs(contract: Contract): Promise<void> {
+    console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
+
+    const resultBytes = await contract.evaluateTransaction('GetAllTransactionLogs');
 
     const resultJson = utf8Decoder.decode(resultBytes);
     const result = JSON.parse(resultJson);
@@ -322,4 +332,90 @@ app.post('/getDeployment', async (req : any, res: any) => {
         console.error('Error retrieving deployment:', error);
         res.status(500).json({ error: 'Failed to retrieve deployment' });
     }
+});
+
+// GET endpoint for retrieving all revocations
+app.get('/revocations', async (req, res) => {
+    try {
+        // Initialize your gateway and contract here
+        const client = await newGrpcConnection();
+        const gateway = connect({
+            client,
+            identity: await newIdentity(),
+            signer: await newSigner(),
+            // Default timeouts for different gRPC calls
+            evaluateOptions: () => {
+                return { deadline: Date.now() + 5000 }; // 5 seconds
+            },
+            endorseOptions: () => {
+                return { deadline: Date.now() + 15000 }; // 15 seconds
+            },
+            submitOptions: () => {
+                return { deadline: Date.now() + 5000 }; // 5 seconds
+            },
+            commitStatusOptions: () => {
+                return { deadline: Date.now() + 60000 }; // 1 minute
+            },
+        });
+        const network = gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+
+        // Call the getAllRevocations function
+        await getAllRevocations(contract);
+
+        // Close the gateway connection
+        await gateway.close();
+
+        // Respond with success
+        res.status(200).json({ message: 'Retrieved all revocations successfully' });
+    } catch (error) {
+        // Handle errors
+        console.error('Error retrieving revocations:', error);
+        res.status(500).json({ error: 'Failed to retrieve revocations' });
+    }
+});
+
+// GET endpoint for retrieving all transaction logs
+app.get('/transaction-logs', async (req, res) => {
+    try {
+        // Initialize your gateway and contract here
+        const client = await newGrpcConnection();
+        const gateway = connect({
+            client,
+            identity: await newIdentity(),
+            signer: await newSigner(),
+            // Default timeouts for different gRPC calls
+            evaluateOptions: () => {
+                return { deadline: Date.now() + 5000 }; // 5 seconds
+            },
+            endorseOptions: () => {
+                return { deadline: Date.now() + 15000 }; // 15 seconds
+            },
+            submitOptions: () => {
+                return { deadline: Date.now() + 5000 }; // 5 seconds
+            },
+            commitStatusOptions: () => {
+                return { deadline: Date.now() + 60000 }; // 1 minute
+            },
+        });
+        const network = gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+
+        // Call the getAllTransactionLogs function
+        await getAllTransactionLogs(contract);
+
+        // Close the gateway connection
+        await gateway.close();
+
+        // Respond with success
+        res.status(200).json({ message: 'Retrieved all transaction logs successfully' });
+    } catch (error) {
+        // Handle errors
+        console.error('Error retrieving transaction logs:', error);
+        res.status(500).json({ error: 'Failed to retrieve transaction logs' });
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
 });

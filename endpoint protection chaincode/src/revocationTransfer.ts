@@ -66,24 +66,29 @@ export class AssetTransferContract extends Contract {
     }
 
     //Get all revocations
-    @Transaction(false)
-    @Returns('string')
-    public async GetAllRevocations(ctx: Context): Promise<string> {
+@Transaction(false)
+@Returns('string')
+public async GetAllRevocations(ctx: Context): Promise<string> {
 
-        var revocations: Revocation[] = [];
-
+    const allResults = [];
         // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
-        const iterator = await ctx.stub.getStateByPartialCompositeKey('Revocation', []);
-        const asyncIterator = iterator[Symbol.asyncIterator]();
-
-        for await (const result of asyncIterator) {
-            const strValue = result.value.toString('utf8');
-            const revocation: Revocation = JSON.parse(strValue);
-            revocations.push(revocation);
+        const iterator = await ctx.stub.getStateByRange('', '');
+        let result = await iterator.next();
+        while (!result.done) {
+            const strValue = Buffer.from(result.value.value.toString()).toString('utf8');
+            let record;
+            try {
+                record = JSON.parse(strValue);
+            } catch (err) {
+                console.log(err);
+                record = strValue;
+            }
+            allResults.push(record);
+            result = await iterator.next();
         }
+        return JSON.stringify(allResults);
+}
 
-        return JSON.stringify(revocations);
-    }
 
 }
 

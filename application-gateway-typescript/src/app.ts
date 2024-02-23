@@ -76,20 +76,108 @@ async function main(): Promise<void> {
         // Initialize a set of asset data on the ledger using the chaincode 'InitLedger' function.
         await initLedger(contract);
 
-        // Return all the current assets on the ledger.
-        await getAllAssets(contract);
+        app.post('/deploy', async (req : any, res: any) => {
+            try {
+                // Extract data from the request body
+                const { deploymentID, description, author, code } = req.body;
+        
+                console.log('\n--> Submit Transaction: Deploy, creates new deployment with ID, Description, Author, and Code');
 
-        // Create a new asset on the ledger.
-        //await createAsset(contract);
+                await contract.submitTransaction(
+                    'Deploy',
+                    deploymentID,
+                    description,
+                    author,
+                    code
+                );
 
-        // Update an existing asset asynchronously.
-        await transferAssetAsync(contract);
+                console.log('*** Transaction committed successfully');
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Deployment successful' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error deploying asset:', error);
+                res.status(500).json({ error: 'Failed to deploy asset' });
+            }
+        });
+        
+        //post for get deployment by id
+        app.post('/getDeploymentByID', async (req : any, res: any) => {
+            try {
+                
+                // Extract data from the request body
+                const { deploymentID } = req.body;
+        
+                console.log('\n--> Evaluate Transaction: ReadAsset, function returns asset attributes');
 
-        // Get the deployment details by ID.
-        await GetDeploymentByIDByID(contract);
+                const resultBytes = await contract.evaluateTransaction('GetDeploymentByID', deploymentID);
 
-        // Update an asset which does not exist.
-        await updateNonExistentAsset(contract)
+                const resultJson = utf8Decoder.decode(resultBytes);
+                const result = JSON.parse(resultJson);
+                console.log('*** Result:', result);
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Deployment retrieved successfully' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error retrieving deployment:', error);
+                res.status(500).json({ error: 'Failed to retrieve deployment' });
+            }
+        });
+        
+        // GET endpoint for retrieving all revocations
+        app.get('/revocations', async (req : any, res: any) => {
+            try {
+                // Call the getAllRevocations function
+                console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
+
+                const resultBytes = await contract.evaluateTransaction('GetAllRevocations');
+
+                const resultJson = utf8Decoder.decode(resultBytes);
+                const result = JSON.parse(resultJson);
+                console.log('*** Result:', result);
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Retrieved all revocations successfully' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error retrieving revocations:', error);
+                res.status(500).json({ error: 'Failed to retrieve revocations' });
+            }
+        });
+        
+        // GET endpoint for retrieving all transaction logs
+        app.get('/transaction-logs', async (req: any, res: any) => {
+            try {
+                console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
+
+                const resultBytes = await contract.evaluateTransaction('GetAllTransactionLogs');
+
+                const resultJson = utf8Decoder.decode(resultBytes);
+                const result = JSON.parse(resultJson);
+                console.log('*** Result:', result);
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Retrieved all transaction logs successfully' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error retrieving transaction logs:', error);
+                res.status(500).json({ error: 'Failed to retrieve transaction logs' });
+            }
+        });
     } finally {
         gateway.close();
         client.close();
@@ -135,43 +223,6 @@ async function initLedger(contract: Contract): Promise<void> {
 }
 
 /**
- * Evaluate a transaction to query ledger state.
- */
-async function getAllRevocations(contract: Contract): Promise<void> {
-    console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
-
-    const resultBytes = await contract.evaluateTransaction('GetAllRevocations');
-
-    const resultJson = utf8Decoder.decode(resultBytes);
-    const result = JSON.parse(resultJson);
-    console.log('*** Result:', result);
-}
-
-async function getAllTransactionLogs(contract: Contract): Promise<void> {
-    console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
-
-    const resultBytes = await contract.evaluateTransaction('GetAllTransactionLogs');
-
-    const resultJson = utf8Decoder.decode(resultBytes);
-    const result = JSON.parse(resultJson);
-    console.log('*** Result:', result);
-}
-
-async function Deploy(contract: Contract, deploymentID: string, description: string, author: string, code: string): Promise<void> {
-    console.log('\n--> Submit Transaction: Deploy, creates new deployment with ID, Description, Author, and Code');
-
-    await contract.submitTransaction(
-        'Deploy',
-        deploymentID,
-        description,
-        author,
-        code
-    );
-
-    console.log('*** Transaction committed successfully');
-}
-
-/**
  * Submit transaction asynchronously, allowing the application to process the smart contract response (e.g. update a UI)
  * while waiting for the commit notification.
  */
@@ -192,16 +243,6 @@ async function transferAssetAsync(contract: Contract): Promise<void> {
     }
 
     console.log('*** Transaction committed successfully');
-}
-
-async function GetDeploymentByIDByID(contract: Contract): Promise<void> {
-    console.log('\n--> Evaluate Transaction: ReadAsset, function returns asset attributes');
-
-    const resultBytes = await contract.evaluateTransaction('GetDeploymentByID', deploymentID);
-
-    const resultJson = utf8Decoder.decode(resultBytes);
-    const result = JSON.parse(resultJson);
-    console.log('*** Result:', result);
 }
 
 /**
@@ -246,175 +287,6 @@ async function displayInputParameters(): Promise<void> {
     console.log(`peerEndpoint:      ${peerEndpoint}`);
     console.log(`peerHostAlias:     ${peerHostAlias}`);
 }
-
-app.post('/deploy', async (req : any, res: any) => {
-    try {
-        // Initialize your gateway and contract here
-        const client = await newGrpcConnection();
-        const gateway = connect({
-            client,
-            identity: await newIdentity(),
-            signer: await newSigner(),
-            // Default timeouts for different gRPC calls
-            evaluateOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            endorseOptions: () => {
-                return { deadline: Date.now() + 15000 }; // 15 seconds
-            },
-            submitOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            commitStatusOptions: () => {
-                return { deadline: Date.now() + 60000 }; // 1 minute
-            },
-        });
-        const network = gateway.getNetwork(channelName);
-        const contract = network.getContract(chaincodeName);
-
-        // Extract data from the request body
-        const { deploymentID, description, author, code } = req.body;
-
-        // Call the Deploy function with the provided parameters
-        await Deploy(contract, deploymentID, description, author, code);
-
-        // Close the gateway connection
-        await gateway.close();
-
-        // Respond with success
-        res.status(200).json({ message: 'Deployment successful' });
-    } catch (error) {
-        // Handle errors
-        console.error('Error deploying asset:', error);
-        res.status(500).json({ error: 'Failed to deploy asset' });
-    }
-});
-
-//post for get deployment by id
-app.post('/getDeployment', async (req : any, res: any) => {
-    try {
-        // Initialize your gateway and contract here
-        const client = await newGrpcConnection();
-        const gateway = connect({
-            client,
-            identity: await newIdentity(),
-            signer: await newSigner(),
-            // Default timeouts for different gRPC calls
-            evaluateOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            endorseOptions: () => {
-                return { deadline: Date.now() + 15000 }; // 15 seconds
-            },
-            submitOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            commitStatusOptions: () => {
-                return { deadline: Date.now() + 60000 }; // 1 minute
-            },
-        });
-        const network = gateway.getNetwork(channelName);
-        const contract = network.getContract(chaincodeName);
-
-        // Extract data from the request body
-        const { deploymentID } = req.body;
-
-        // Call the GetDeploymentByID function with the provided parameters
-        await GetDeploymentByIDByID(contract);
-
-        // Close the gateway connection
-        await gateway.close();
-
-        // Respond with success
-        res.status(200).json({ message: 'Deployment retrieved successfully' });
-    } catch (error) {
-        // Handle errors
-        console.error('Error retrieving deployment:', error);
-        res.status(500).json({ error: 'Failed to retrieve deployment' });
-    }
-});
-
-// GET endpoint for retrieving all revocations
-app.get('/revocations', async (req, res) => {
-    try {
-        // Initialize your gateway and contract here
-        const client = await newGrpcConnection();
-        const gateway = connect({
-            client,
-            identity: await newIdentity(),
-            signer: await newSigner(),
-            // Default timeouts for different gRPC calls
-            evaluateOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            endorseOptions: () => {
-                return { deadline: Date.now() + 15000 }; // 15 seconds
-            },
-            submitOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            commitStatusOptions: () => {
-                return { deadline: Date.now() + 60000 }; // 1 minute
-            },
-        });
-        const network = gateway.getNetwork(channelName);
-        const contract = network.getContract(chaincodeName);
-
-        // Call the getAllRevocations function
-        await getAllRevocations(contract);
-
-        // Close the gateway connection
-        await gateway.close();
-
-        // Respond with success
-        res.status(200).json({ message: 'Retrieved all revocations successfully' });
-    } catch (error) {
-        // Handle errors
-        console.error('Error retrieving revocations:', error);
-        res.status(500).json({ error: 'Failed to retrieve revocations' });
-    }
-});
-
-// GET endpoint for retrieving all transaction logs
-app.get('/transaction-logs', async (req, res) => {
-    try {
-        // Initialize your gateway and contract here
-        const client = await newGrpcConnection();
-        const gateway = connect({
-            client,
-            identity: await newIdentity(),
-            signer: await newSigner(),
-            // Default timeouts for different gRPC calls
-            evaluateOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            endorseOptions: () => {
-                return { deadline: Date.now() + 15000 }; // 15 seconds
-            },
-            submitOptions: () => {
-                return { deadline: Date.now() + 5000 }; // 5 seconds
-            },
-            commitStatusOptions: () => {
-                return { deadline: Date.now() + 60000 }; // 1 minute
-            },
-        });
-        const network = gateway.getNetwork(channelName);
-        const contract = network.getContract(chaincodeName);
-
-        // Call the getAllTransactionLogs function
-        await getAllTransactionLogs(contract);
-
-        // Close the gateway connection
-        await gateway.close();
-
-        // Respond with success
-        res.status(200).json({ message: 'Retrieved all transaction logs successfully' });
-    } catch (error) {
-        // Handle errors
-        console.error('Error retrieving transaction logs:', error);
-        res.status(500).json({ error: 'Failed to retrieve transaction logs' });
-    }
-});
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);

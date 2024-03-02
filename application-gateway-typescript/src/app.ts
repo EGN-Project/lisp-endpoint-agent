@@ -38,7 +38,8 @@ const peerEndpoint = envOrDefault('PEER_ENDPOINT', 'localhost:7051');
 const peerHostAlias = envOrDefault('PEER_HOST_ALIAS', 'peer0.org1.example.com');
 
 const utf8Decoder = new TextDecoder();
-const deploymentID = `asset${Date.now()}`;
+const deploymentID = `deployment${Date.now()}`;
+const revocationID = `revocation${Date.now()}`;
 
 async function main(): Promise<void> {
 
@@ -133,7 +134,7 @@ async function main(): Promise<void> {
         });
 
         //post for remove Deployment By ID
-        app.delete('/RemoveDeployment', async (req : any, res: any) => {
+        app.delete('/revokeDeployment', async (req : any, res: any) => {
             try {
                 
                 // Extract data from the request body
@@ -141,7 +142,7 @@ async function main(): Promise<void> {
         
                 console.log('\n--> Evaluate Transaction: ReadAsset, function returns asset attributes');
 
-                const resultBytes = await contract.evaluateTransaction('RemoveDeployment', deploymentID);
+                const resultBytes = await contract.evaluateTransaction('RevokeDeployment', deploymentID);
 
                 const resultJson = utf8Decoder.decode(resultBytes);
                 const result = JSON.parse(resultJson);
@@ -160,7 +161,7 @@ async function main(): Promise<void> {
         });
         
         // GET endpoint for retrieving all revocations
-        app.get('/revocations', async (req : any, res: any) => {
+        app.get('/getAllRevocations', async (req : any, res: any) => {
             try {
                 // Call the getAllRevocations function
                 console.log('\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger');
@@ -180,6 +181,58 @@ async function main(): Promise<void> {
                 // Handle errors
                 console.error('Error retrieving revocations:', error);
                 res.status(500).json({ error: 'Failed to retrieve revocations' });
+            }
+        });
+
+        //post for get revocation by id
+        app.post('/getRevocationByID', async (req : any, res: any) => {
+            try {
+                // Extract data from the request body
+                const { revocationID } = req.body;
+        
+                console.log('\n--> Evaluate Transaction: ReadAsset, function returns asset attributes');
+
+                const resultBytes = await contract.evaluateTransaction('GetRevocationByID', revocationID);
+
+                const resultJson = utf8Decoder.decode(resultBytes);
+                const result = JSON.parse(resultJson);
+                console.log('*** Result:', result);
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Revocation retrieved successfully' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error retrieving revocation:', error);
+                res.status(500).json({ error: 'Failed to retrieve revocation' });
+            }
+        });
+
+        //post for validate revocation
+        app.post('/validateRevocation', async (req : any, res: any) => {
+            try {
+                // Extract data from the request body
+                const { revocationID } = req.body;
+        
+                console.log('\n--> Evaluate Transaction: ValidateRevocation, function returns true if revocation exists');
+
+                const resultBytes = await contract.evaluateTransaction('ValidateRevocation', revocationID);
+
+                const resultJson = utf8Decoder.decode(resultBytes);
+                const result = JSON.parse(resultJson);
+                console.log('*** Result:', result);
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Revocation validated successfully' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error validating revocation:', error);
+                res.status(500).json({ error: 'Failed to validate revocation' });
             }
         });
         

@@ -48,23 +48,6 @@ export class AssetTransferContract extends Contract {
         return assetJSON && assetJSON.length > 0;
     }
 
-    //Revoke deployment of the contract
-    @Transaction(true)
-    public async RevokeDeployment(ctx: Context, targetDeploymentID: string, reason: string): Promise<void> {
-        const exists = await this.ValidateRevocation(ctx, targetDeploymentID);
-        if (!exists) {
-            throw new Error(`The deployment ${targetDeploymentID} does not exist`);
-        }
-        const revocation = {
-            targetDeploymentID,
-            reason,
-            RevocationID: ctx.stub.getTxID(),
-        };
-
-        // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
-        await ctx.stub.putState(targetDeploymentID, Buffer.from(stringify(sortKeysRecursive(revocation))));
-    }
-
     //Get all revocations
 @Transaction(false)
 @Returns('string')

@@ -93,7 +93,7 @@ export class DeployTransferContract extends Contract {
     }
 
     @Transaction()
-    public async RemoveDeployment(ctx: Context, deploymentID: string): Promise<void>{
+    public async RevokeDeployment(ctx: Context, deploymentID: string): Promise<void>{
         const deploymentExists = await this.ValidateDeployment(ctx, deploymentID);
         if (!deploymentExists) {
             throw new Error(`Deployment with ID ${deploymentID} does not exist`);

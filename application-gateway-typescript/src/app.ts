@@ -131,6 +131,33 @@ async function main(): Promise<void> {
                 res.status(500).json({ error: 'Failed to retrieve deployment' });
             }
         });
+
+        //post for remove Deployment By ID
+        app.delete('/RemoveDeployment', async (req : any, res: any) => {
+            try {
+                
+                // Extract data from the request body
+                const { deploymentID } = req.body;
+        
+                console.log('\n--> Evaluate Transaction: ReadAsset, function returns asset attributes');
+
+                const resultBytes = await contract.evaluateTransaction('RemoveDeployment', deploymentID);
+
+                const resultJson = utf8Decoder.decode(resultBytes);
+                const result = JSON.parse(resultJson);
+                console.log('*** Result:', result);
+        
+                // Close the gateway connection
+                await gateway.close();
+        
+                // Respond with success
+                res.status(200).json({ message: 'Deployment retrieved successfully' });
+            } catch (error) {
+                // Handle errors
+                console.error('Error retrieving deployment:', error);
+                res.status(500).json({ error: 'Failed to retrieve deployment' });
+            }
+        });
         
         // GET endpoint for retrieving all revocations
         app.get('/revocations', async (req : any, res: any) => {

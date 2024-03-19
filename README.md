@@ -1,4 +1,4 @@
-# EGN Project 
+# EGN Project
 
 ### Functionality
 The platform is designed for real-time monitoring, employing signature-based detection and machine learning algorithms to identify both known and unknown security threats. It allows for dynamic updates to threat detection rules without the need for software updates. Additionally, the system logs all activities and generates detailed reports for review by engineers.
@@ -10,7 +10,7 @@ The console-based user interface is crafted for ease of use, enabling end-users 
 Safety is a top priority, ensuring that the Endpoint Protection Agent's actions do not compromise the integrity and safety of monitored devices. Integration with the blockchain network provides tamper-proof audit trails for all interactions, and the system adheres to best practices for data security and encryption. Regular security audits and code reviews are conducted to address potential vulnerabilities.
 
 ### System Design and Key Subsystems
-The architecture of the platform includes key subsystems like 
+The architecture of the platform includes key subsystems like
   * Endpoint Protection Agent
   * Blockchain Integration Subsystem
   * Smart Contract Development Subsystem
@@ -20,10 +20,10 @@ The architecture of the platform includes key subsystems like
 Each subsystem plays a crucial role in ensuring the effectiveness, reliability, and security of the entire Endpoint Protection Platform.
 
 ## Use-case Diagram
-<img width="600" src="./github/use-case-diagram.svg" />
+<img width="600" src="./meta/use-case-diagram.svg" />
 
 ## Class Diagram
-<img width="600" src="./github/class-diagram.svg" />
+<img width="600" src="./meta/class-diagram.svg" />
 
 #### Authors
 - [Colton Rohan](https://github.com/ColtonRohan)

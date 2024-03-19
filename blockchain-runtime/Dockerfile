@@ -10,7 +10,6 @@ COPY --chown=node:node . /usr/src/app
 ENV npm_config_cache=/usr/src/app
 RUN npm ci && npm run package
 
-
 FROM node:16 AS production
 ARG CC_SERVER_PORT
 
@@ -34,3 +33,5 @@ ENV NODE_ENV=production
 
 USER node
 ENTRYPOINT [ "/tini", "--", "/usr/src/app/docker-entrypoint.sh" ]
+
+# commit -> github -> github action -> deploy the dockerfile to heroku -> YOU can make http requests to that heroku endpoint to test it

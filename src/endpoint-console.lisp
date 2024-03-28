@@ -30,7 +30,7 @@
     (format t "Response: ~a~%" response)))
 
 (defun get-all-revocations ()
-  (let ((url "http://localhost:3000/getAllRevocations")
+  (let* ((url "http://localhost:3000/getAllRevocations")
         (response (call-endpoint-api url :get)))
     (format t "Response: ~a~%" response)))
 
@@ -47,7 +47,7 @@
     (format t "Response: ~a~%" response)))
 
 (defun get-all-transaction-logs ()
-  (let ((url "http://localhost:3000/transaction-logs")
+  (let* ((url "http://localhost:3000/transaction-logs")
         (response (call-endpoint-api url :get)))
     (format t "Response: ~a~%" response)))
 

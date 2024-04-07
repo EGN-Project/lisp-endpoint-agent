@@ -16,41 +16,39 @@ import assert from "assert";
 // Load environment variables from a .env file if present.
 require("dotenv").config();
 
-enum EnvVariable {
-  BASE_PATH = "BASE_PATH",
-  KEY_DIRECTORY_PATH = "KEY_DIRECTORY_PATH",
-  CERT_FILENAME = "CERT_FILENAME",
-  PEER_HOST_ALIAS = "PEER_HOST_ALIAS",
-  CHANNEL_NAME = "CHANNEL_NAME",
-  CHAINCODE_NAME = "CHAINCODE_NAME",
-  MSP_ID = "MSP_ID",
-  TLS_CERT_FILENAME = "TLS_CERT_FILENAME",
-  PEER_ENDPOINT = "PEER_ENDPOINT",
+/**
+ * envOrDefault() will return the value of an environment variable, or a default value if the variable is undefined.
+ */
+ function envOrDefault(key: string, defaultValue: string): string {
+  return process.env[key] || defaultValue;
 }
+
+const channelName = envOrDefault('CHANNEL_NAME', 'mychannel');
+const chaincodeName = envOrDefault('CHAINCODE_NAME', 'basic');
+const mspId = envOrDefault('MSP_ID', 'Org1MSP');
+
+// Path to crypto materials.
+const cryptoPath = envOrDefault('CRYPTO_PATH', path.resolve(__dirname, '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com'));
+
+// Path to user private key directory.
+const keyDirectoryPath = envOrDefault('KEY_DIRECTORY_PATH', path.resolve(cryptoPath, 'users', 'User1@org1.example.com', 'msp', 'keystore'));
+
+// Path to user certificate directory.
+const certDirectoryPath = envOrDefault('CERT_DIRECTORY_PATH', path.resolve(cryptoPath, 'users', 'User1@org1.example.com', 'msp', 'signcerts'));
+
+// Path to peer tls certificate.
+const tlsCertPath = envOrDefault('TLS_CERT_PATH', path.resolve(cryptoPath, 'peers', 'peer0.org1.example.com', 'tls', 'ca.crt'));
+
+// Gateway peer endpoint.
+const peerEndpoint = envOrDefault('PEER_ENDPOINT', 'localhost:7051');
+
+// Gateway peer SSL host name override.
+const peerHostAlias = envOrDefault('PEER_HOST_ALIAS', 'peer0.org1.example.com');
 
 const app = express();
 const port = 3000;
 
-const channelName = getEnvVariable(EnvVariable.CHANNEL_NAME);
-const chaincodeName = getEnvVariable(EnvVariable.CHAINCODE_NAME);
-const mspId = getEnvVariable(EnvVariable.MSP_ID);
-const basePath = getEnvVariable(EnvVariable.BASE_PATH);
-const keyDirectoryPath = getEnvVariable(EnvVariable.KEY_DIRECTORY_PATH);
 
-const certPath = path.resolve(
-  basePath,
-  getEnvVariable(EnvVariable.CERT_FILENAME)
-);
-
-const tlsCertPath = path.resolve(
-  basePath,
-  getEnvVariable(EnvVariable.TLS_CERT_FILENAME)
-);
-
-const peerEndpoint = getEnvVariable(EnvVariable.PEER_ENDPOINT);
-
-// Gateway peer SSL host name override.
-const peerHostAlias = getEnvVariable(EnvVariable.PEER_HOST_ALIAS);
 
 const utf8Decoder = new TextDecoder();
 const deploymentID = `deployment${Date.now()}`;
@@ -299,9 +297,14 @@ async function newGrpcConnection(): Promise<grpc.Client> {
   });
 }
 
-async function newIdentity(): Promise<Identity> {
-  const credentials = await fs.readFile(certPath);
+async function getFirstDirFileName(dirPath: string): Promise<string> {
+  const files = await fs.readdir(dirPath);
+  return path.join(dirPath, files[0]);
+}
 
+async function newIdentity(): Promise<Identity> {
+  const certPath = await getFirstDirFileName(certDirectoryPath);
+  const credentials = await fs.readFile(certPath);
   return { mspId, credentials };
 }
 
@@ -392,32 +395,18 @@ async function updateNonExistentAsset(contract: Contract): Promise<void> {
 }
 
 /**
- * envOrDefault() will return the value of an environment variable, or a default value if the variable is undefined.
- */
-function getEnvVariable(key: EnvVariable): string {
-  const value = process.env[key];
-
-  assert(
-    value !== undefined,
-    `Environment variable ${key} is not defined (did you forget to set it on the '.env' file?)`
-  );
-
-  return value;
-}
-
-/**
  * displayInputParameters() will print the global scope parameters used by the main driver routine.
  */
 async function displayInputParameters(): Promise<void> {
   console.log(`channelName:       ${channelName}`);
-  console.log(`chaincodeName:     ${chaincodeName}`);
-  console.log(`mspId:             ${mspId}`);
-  console.log(`basePath:          ${basePath}`);
-  console.log(`keyDirectoryPath:  ${keyDirectoryPath}`);
-  console.log(`certPath:          ${certPath}`);
-  console.log(`tlsCertPath:       ${tlsCertPath}`);
-  console.log(`peerEndpoint:      ${peerEndpoint}`);
-  console.log(`peerHostAlias:     ${peerHostAlias}`);
+    console.log(`chaincodeName:     ${chaincodeName}`);
+    console.log(`mspId:             ${mspId}`);
+    console.log(`cryptoPath:        ${cryptoPath}`);
+    console.log(`keyDirectoryPath:  ${keyDirectoryPath}`);
+    console.log(`certDirectoryPath: ${certDirectoryPath}`);
+    console.log(`tlsCertPath:       ${tlsCertPath}`);
+    console.log(`peerEndpoint:      ${peerEndpoint}`);
+    console.log(`peerHostAlias:     ${peerHostAlias}`);
 }
 
 app.listen(port, () => {

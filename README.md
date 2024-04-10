@@ -19,6 +19,16 @@ The architecture of the platform includes key subsystems like
 
 Each subsystem plays a crucial role in ensuring the effectiveness, reliability, and security of the entire Endpoint Protection Platform.
 
+### How To Run
+To run Test Network, refer to -> `https://docs.google.com/document/d/1cyQHG-WsbXzv9V11rWc0OUhWlItdNUve1G4DRDz7bSU/edit`
+
+To run Lisp Console, ensure sbcl and quicklisp is installed on your device. Then go in the terminal and run:
+  * sbcl
+  * (load "path to setup.lisp")  this is found in the quicklisp folder which should be installed locally already
+  * (load "path to endpoint-console") 
+
+
+
 ## Use-case Diagram
 <img width="600" src="./meta/use-case-diagram.svg" />
 

@@ -7,15 +7,19 @@
         (cdr (assoc :body (rest response)))
         (error "Failed to fetch data"))))
 
-(defun deploy-deployment (author-id comment payload deployment-id)
+(defun deploy-deployment (deployment-id description author code)
+  "Deploys a deployment by sending a POST request to the specified URL."
   (let* ((url "http://localhost:3000/deploy")
-         (payload `(("authorID" . ,author-id)
-                    ("comment" . ,comment)
-                    ("payload" . ,payload)
-                    ("deploymentID" . ,deployment-id)))
-         (response (call-endpoint-api url :post payload)))
-    (format t "Response: ~a~%" response)))
-1
+         (json-payload (drakma:http-request
+                        url
+                        :method :post
+                        :parameters (list (cons "authorID" author)
+                                          (cons "comment" description)
+                                          (cons "payload" code)
+                                          (cons "deploymentID" deployment-id))
+                        :content-type "application/json")))
+    (format t "Response: ~a~%" json-payload)))
+
 
 (defun get-deployment-by-id (deployment-id)
   (let* ((url "http://localhost:3000/getDeploymentByID")

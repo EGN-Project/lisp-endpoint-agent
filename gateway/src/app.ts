@@ -5,6 +5,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import { TextDecoder } from 'util';
 import express from 'express';
+import bodyParser from 'body-parser';
 
 const channelName = envOrDefault('CHANNEL_NAME', 'mychannel');
 const chaincodeName = envOrDefault('CHAINCODE_NAME', 'basic');
@@ -31,8 +32,12 @@ const peerHostAlias = envOrDefault('PEER_HOST_ALIAS', 'peer0.org1.example.com');
 const utf8Decoder = new TextDecoder();
 const app = express();
 const port = 3000;
+app.use(bodyParser.json());
 
+var close = false;
 
+// Parse URL-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 const deploymentID = `deployment${Date.now()}`;
 const revocationID = `revocation${Date.now()}`;
 
@@ -76,18 +81,23 @@ async function main(): Promise<void> {
     app.post("/deploy", async (req, res) => {
       try {
         // Extract data from the request body.
-        const { deploymentID, description, author, code } = req.body;
+        console.log(req.body);
+
+        const authorID = req.body.authorID;
+        const comment = req.body.comment;
+        const payload = req.body.payload;
+        const deploymentID = req.body.deploymentID
 
         console.log(
           "\n--> Submit Transaction: Deploy, creates new deployment with ID, Description, Author, and Code"
         );
 
         await contract.submitTransaction(
-          "Deploy",
-          deploymentID,
-          description,
-          author,
-          code
+          "Deployment",
+          authorID,
+          comment,
+          payload,
+          deploymentID
         );
 
         console.log("*** Transaction committed successfully");
@@ -258,7 +268,11 @@ async function main(): Promise<void> {
         res.status(500).json({ error: "Failed to retrieve transaction logs" });
       }
     });
-  } finally {
+  } catch {
+    console.log("error");
+  }
+  while(close){
+    console.log("Closing");
     gateway.close();
     client.close();
   }

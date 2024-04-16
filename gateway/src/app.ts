@@ -194,7 +194,7 @@ async function main(): Promise<void> {
       try {
         // Extract data from the request body
         const { revocationID } = req.body;
-
+        console.log(revocationID)
         console.log(
           "\n--> Evaluate Transaction: ReadAsset, function returns asset attributes"
         );
@@ -209,7 +209,7 @@ async function main(): Promise<void> {
 
         console.log("*** Result:", result);
         gateway.close();
-        res.status(200).json({ message: "Revocation retrieved successfully" });
+        res.status(200).json({ message: "Revocation retrieved successfully", data: result });
       } catch (error) {
         console.error("Error retrieving revocation:", error);
         res.status(500).json({ error: "Failed to retrieve revocation" });

@@ -51,9 +51,12 @@
 
 (defun get-revocation-by-id (revocation-id)
   (let* ((url "http://localhost:3000/getRevocationByID")
-         (payload (json:encode-json `(("revocationID" . ,revocation-id))))
-         (response (call-endpoint-api url :post payload)))
-    (format t "Response: ~a~%" response)))
+         (json-payload (drakma:http-request
+                        url
+                        :method :post 
+                        :parameters (list (cons "revocationID" revocation-id))
+                        :content-type "application/json")))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun validate-revocation (revocation-id)
   (let* ((url "http://localhost:3000/validateRevocation")

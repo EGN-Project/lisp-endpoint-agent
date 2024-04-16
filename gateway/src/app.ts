@@ -221,7 +221,7 @@ async function main(): Promise<void> {
       try {
         // Extract data from the request body
         const { revocationID } = req.body;
-
+        console.log(revocationID);
         console.log(
           "\n--> Evaluate Transaction: ValidateRevocation, function returns true if revocation exists"
         );
@@ -262,7 +262,8 @@ async function main(): Promise<void> {
 
         res
           .status(200)
-          .json({ message: "Retrieved all transaction logs successfully" });
+          .json({ message: "Retrieved all transaction logs successfully",
+                  data: result });
       } catch (error) {
         console.error("Error retrieving transaction logs:", error);
         res.status(500).json({ error: "Failed to retrieve transaction logs" });

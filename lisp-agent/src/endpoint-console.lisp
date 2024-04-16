@@ -14,8 +14,6 @@
           (t
            (error "Unexpected response type")))))
 
-
-
 (defun deploy-deployment (deployment-id description author code)
   "Deploys a deployment by sending a POST request to the specified URL."
   (let* ((url "http://localhost:3000/deploy")
@@ -63,6 +61,15 @@
          (payload (json:encode-json `(("revocationID" . ,revocation-id))))
          (response (call-endpoint-api url :post payload)))
     (format t "Response: ~a~%" response)))
+
+(defun validate-revocation (revocation-id)
+  (let* ((url "http://localhost:3000/validateRevocation")
+         (json-payload (drakma:http-request
+                        url
+                        :method :post 
+                        :parameters (list (cons "revocationID" revocation-id))
+                        :content-type "application/json")))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun get-all-transaction-logs ()
   (let* ((url "http://localhost:3000/transaction-logs")

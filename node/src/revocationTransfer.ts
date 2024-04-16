@@ -131,6 +131,8 @@ export class AssetTransferContract extends Contract {
        authorID: authorID,
        payload: payload,
      };
+
+     this.CreateAsset(ctx, deploymentID, authorID, date,comment);
      // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
      await ctx.stub.putState(
        deploymentID,

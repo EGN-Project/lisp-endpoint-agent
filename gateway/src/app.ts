@@ -167,7 +167,7 @@ async function main(): Promise<void> {
       try {
         // Call the getAllRevocations function
         console.log(
-          "\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger"
+          "\n--> Evaluate Transaction: GetAllRevocations, function returns all the current Revocations on the ledger"
         );
 
         const resultBytes = await contract.evaluateTransaction(
@@ -182,7 +182,7 @@ async function main(): Promise<void> {
 
         res
           .status(200)
-          .json({ message: "Retrieved all revocations successfully" });
+          .json({ message: "Retrieved all revocations successfully" , data: result});
       } catch (error) {
         console.error("Error retrieving revocations:", error);
         res.status(500).json({ error: "Failed to retrieve revocations" });

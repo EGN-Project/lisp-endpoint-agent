@@ -57,78 +57,6 @@ export class AssetTransferContract extends Contract {
       );
       console.info(`Asset ${revocation.RevocationID} initialized`);
     }
-
-    const TransactionLogs: TransactionLog[] = [
-      {
-        transactionID: "1",
-        authorID: "Bebo",
-        time: date,
-        description: "Example",
-      },
-      {
-        transactionID: "2",
-        authorID: "Bebo",
-        time: date,
-        description: "Example",
-      },
-    ];
-
-    for (const asset of TransactionLogs) {
-      // example of how to write to world state deterministically
-      // use convention of alphabetic order
-      // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
-      // when retrieving data, in any lang, the order of data will be the same and consequently also the corresponding hash
-      await ctx.stub.putState(
-        asset.transactionID,
-        Buffer.from(stringify(sortKeysRecursive(asset)))
-      );
-      console.info(`Stored Transaction ${asset.transactionID} initialized`);
-    }
-    
-    const deployment: Deployment[] = [
-      {
-        authorID: "1111",
-        deploymentID: "0000",
-        comment: "Hello",
-        payload: "sodjfo",
-      },
-      {
-        authorID: "2222",
-        deploymentID: "9999",
-        comment: "Hey",
-        payload: "kajsnf",
-      },
-      {
-        authorID: "3333",
-        deploymentID: "8888",
-        comment: "Hi",
-        payload: "khklhl",
-      },
-      {
-        authorID: "4444",
-        deploymentID: "7777",
-        comment: "Hola",
-        payload: "nknjnk",
-      },
-      {
-        authorID: "5555",
-        deploymentID: "6666",
-        comment: "Aloha",
-        payload: "lrterw",
-      },
-    ];
-
-    for (const asset of deployment) {
-      // example of how to write to world state deterministically
-      // use convention of alphabetic order
-      // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
-      // when retrieving data, in any lang, the order of data will be the same and consequently also the corresponding hash
-      await ctx.stub.putState(
-        asset.deploymentID,
-        Buffer.from(stringify(sortKeysRecursive(asset)))
-      );
-      console.info(`Asset ${asset.deploymentID} initialized`);
-    }
   }
 
   // Returns Revocation By Given ID
@@ -316,7 +244,7 @@ export class AssetTransferContract extends Contract {
         "utf8"
       );
 
-      let record: unknown;
+      let record: TransactionLog;
 
       try {
         record = JSON.parse(strValue);

@@ -29,12 +29,14 @@
                         :content-type "application/json")))
     (format t "Response: ~a~%" json-payload)))
 
-
 (defun get-deployment-by-id (deployment-id)
   (let* ((url "http://localhost:3000/getDeploymentByID")
-         (payload (json:encode-json `(("deploymentID" . ,deployment-id))))
-         (response (call-endpoint-api url :post payload)))
-    (format t "Response: ~a~%" response)))
+         (json-payload (drakma:http-request
+                        url
+                        :method :post 
+                        :parameters (list (cons "deploymentID" deployment-id))
+                        :content-type "application/json")))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun revoke-deployment (deployment-id)
   (let* ((url "http://localhost:3000/revokeDeployment")

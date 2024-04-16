@@ -113,7 +113,7 @@ async function main(): Promise<void> {
     app.post("/getDeploymentByID", async (req, res) => {
       try {
         const { deploymentID } = req.body;
-
+        console.log(req.body)
         console.log(
           "\n--> Evaluate Transaction: ReadAsset, function returns asset attributes"
         );

@@ -23,36 +23,36 @@
 
 (defun get-deployment-by-id (deployment-id)
   (let* ((url "http://localhost:3000/getDeploymentByID")
-         (payload `(("deploymentID" . ,deployment-id)))
+         (payload (json:encode-json `(("deploymentID" . ,deployment-id))))
          (response (call-endpoint-api url :post payload)))
     (format t "Response: ~a~%" response)))
 
 (defun revoke-deployment (deployment-id)
   (let* ((url "http://localhost:3000/revokeDeployment")
-         (payload `(("deploymentID" . ,deployment-id)))
+         (payload (json:encode-json `(("deploymentID" . ,deployment-id))))
          (response (call-endpoint-api url :delete payload)))
     (format t "Response: ~a~%" response)))
 
 (defun get-all-revocations ()
   (let* ((url "http://localhost:3000/getAllRevocations")
-        (response (call-endpoint-api url :get)))
+         (response (call-endpoint-api url :get)))
     (format t "Response: ~a~%" response)))
 
 (defun get-revocation-by-id (revocation-id)
   (let* ((url "http://localhost:3000/getRevocationByID")
-         (payload `(("revocationID" . ,revocation-id)))
+         (payload (json:encode-json `(("revocationID" . ,revocation-id))))
          (response (call-endpoint-api url :post payload)))
     (format t "Response: ~a~%" response)))
 
 (defun validate-revocation (revocation-id)
   (let* ((url "http://localhost:3000/validateRevocation")
-         (payload `(("revocationID" . ,revocation-id)))
+         (payload (json:encode-json `(("revocationID" . ,revocation-id))))
          (response (call-endpoint-api url :post payload)))
     (format t "Response: ~a~%" response)))
 
 (defun get-all-transaction-logs ()
   (let* ((url "http://localhost:3000/transaction-logs")
-        (response (call-endpoint-api url :get)))
+         (response (call-endpoint-api url :get)))
     (format t "Response: ~a~%" response)))
 
 (defun endpoint-console ()

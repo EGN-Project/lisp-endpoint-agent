@@ -2,10 +2,19 @@
 (ql:quickload "cl-json")
 
 (defun call-endpoint-api (url method &optional payload)
-  (let ((response (drakma:http-request url :method method :parameters payload)))
-    (if (eq (first response) :ok)
-        (cdr (assoc :body (rest response)))
-        (error "Failed to fetch data"))))
+  (let ((response (drakma:http-request url
+                                       :method method
+                                       :parameters payload
+                                       :content-type "application/json"
+                                       :accept "application/json")))
+    (cond ((typep response 'vector) ; if response is a byte array
+           (babel:octets-to-string response :encoding :utf-8))
+          ((typep response 'string) ; if it's already a string
+           response)
+          (t
+           (error "Unexpected response type")))))
+
+
 
 (defun deploy-deployment (deployment-id description author code)
   "Deploys a deployment by sending a POST request to the specified URL."

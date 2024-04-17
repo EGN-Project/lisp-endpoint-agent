@@ -1,5 +1,8 @@
 (ql:quickload "drakma")
 (ql:quickload "cl-json")
+(ql:quickload "babel")
+(ql:quickload "flexi-streams")
+
 
 (defun call-endpoint-api (url method &optional payload)
   (let ((response (drakma:http-request url
@@ -19,15 +22,16 @@
 (defun deploy-deployment (deployment-id description author code)
   "Deploys a deployment by sending a POST request to the specified URL."
   (let* ((url "http://localhost:3000/deploy")
-         (json-payload (drakma:http-request
-                        url
-                        :method :post
-                        :parameters (list (cons "authorID" author)
-                                          (cons "comment" description)
-                                          (cons "payload" code)
-                                          (cons "deploymentID" deployment-id))
-                        :content-type "application/json")))
-    (format t "Response: ~a~%" json-payload)))
+         (response (drakma:http-request
+                    url
+                    :method :post
+                    :parameters `(("authorID" . ,author)
+                                  ("comment" . ,description)
+                                  ("payload" . ,code)
+                                  ("deploymentID" . ,deployment-id))
+                    :content-type "application/json"))
+         (response-string (babel:octets-to-string response)))
+    (format t "Response: ~a~%" response-string)))
 
 
 (defun get-deployment-by-id (deployment-id)

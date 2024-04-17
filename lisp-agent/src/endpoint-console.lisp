@@ -33,11 +33,12 @@
 
 (defun get-deployment-by-id (deployment-id)
   (let* ((url "http://localhost:3000/getDeploymentByID")
-         (json-payload (drakma:http-request
-                        url
-                        :method :post 
-                        :parameters (list (cons "deploymentID" deployment-id))
-                        :content-type "application/json")))
+         (response (drakma:http-request
+                    url
+                    :method :post 
+                    :parameters `(("deploymentID" . ,deployment-id))
+                    :content-type "application/json"))
+         (json-payload (babel:octets-to-string response)))
     (format t "Response: ~a~%" json-payload)))
 
 (defun revoke-deployment (deployment-id)
@@ -48,16 +49,18 @@
 
 (defun get-all-revocations ()
   (let* ((url "http://localhost:3000/getAllRevocations")
-         (response (call-endpoint-api url :get)))
-    (format t "Response: ~a~%" response)))
+         (response (call-endpoint-api url :get))
+         (json-payload (babel:octets-to-string response)))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun get-revocation-by-id (revocation-id)
   (let* ((url "http://localhost:3000/getRevocationByID")
-         (json-payload (drakma:http-request
-                        url
-                        :method :post 
-                        :parameters (list (cons "revocationID" revocation-id))
-                        :content-type "application/json")))
+         (response (drakma:http-request
+                    url
+                    :method :post 
+                    :parameters `(("revocationID" . ,revocation-id))
+                    :content-type "application/json"))
+         (json-payload (babel:octets-to-string response)))
     (format t "Response: ~a~%" json-payload)))
 
 (defun validate-revocation (revocation-id)
@@ -66,19 +69,11 @@
          (response (call-endpoint-api url :post payload)))
     (format t "Response: ~a~%" response)))
 
-(defun validate-revocation (revocation-id)
-  (let* ((url "http://localhost:3000/validateRevocation")
-         (json-payload (drakma:http-request
-                        url
-                        :method :post 
-                        :parameters (list (cons "revocationID" revocation-id))
-                        :content-type "application/json")))
-    (format t "Response: ~a~%" json-payload)))
-
 (defun get-all-transaction-logs ()
   (let* ((url "http://localhost:3000/transaction-logs")
-         (response (call-endpoint-api url :get)))
-    (format t "Response: ~a~%" response)))
+         (response (call-endpoint-api url :get))
+         (json-payload (babel:octets-to-string response)))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun endpoint-console ()
   (format t "Welcome to the Hyperledger Fabric API Console~%")

@@ -71,9 +71,8 @@
 
 (defun get-all-transaction-logs ()
   (let* ((url "http://localhost:3000/transaction-logs")
-         (response (call-endpoint-api url :get))
-         (json-payload (babel:octets-to-string response)))
-    (format t "Response: ~a~%" json-payload)))
+         (response (call-endpoint-api url :get)))
+    (format t "Response: ~a~%" response)))
 
 (defun endpoint-console ()
   (format t "Welcome to the Hyperledger Fabric API Console~%")

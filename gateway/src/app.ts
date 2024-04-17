@@ -113,7 +113,7 @@ async function main(): Promise<void> {
     app.post("/getDeploymentByID", async (req, res) => {
       try {
         const { deploymentID } = req.body;
-
+        console.log(req.body)
         console.log(
           "\n--> Evaluate Transaction: ReadAsset, function returns asset attributes"
         );
@@ -167,7 +167,7 @@ async function main(): Promise<void> {
       try {
         // Call the getAllRevocations function
         console.log(
-          "\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger"
+          "\n--> Evaluate Transaction: GetAllRevocations, function returns all the current Revocations on the ledger"
         );
 
         const resultBytes = await contract.evaluateTransaction(
@@ -182,7 +182,7 @@ async function main(): Promise<void> {
 
         res
           .status(200)
-          .json({ message: "Retrieved all revocations successfully" });
+          .json({ message: "Retrieved all revocations successfully" , data: result});
       } catch (error) {
         console.error("Error retrieving revocations:", error);
         res.status(500).json({ error: "Failed to retrieve revocations" });
@@ -194,7 +194,7 @@ async function main(): Promise<void> {
       try {
         // Extract data from the request body
         const { revocationID } = req.body;
-
+        console.log(revocationID)
         console.log(
           "\n--> Evaluate Transaction: ReadAsset, function returns asset attributes"
         );
@@ -209,7 +209,7 @@ async function main(): Promise<void> {
 
         console.log("*** Result:", result);
         gateway.close();
-        res.status(200).json({ message: "Revocation retrieved successfully" });
+        res.status(200).json({ message: "Revocation retrieved successfully", data: result });
       } catch (error) {
         console.error("Error retrieving revocation:", error);
         res.status(500).json({ error: "Failed to retrieve revocation" });
@@ -221,7 +221,7 @@ async function main(): Promise<void> {
       try {
         // Extract data from the request body
         const { revocationID } = req.body;
-
+        console.log(revocationID);
         console.log(
           "\n--> Evaluate Transaction: ValidateRevocation, function returns true if revocation exists"
         );
@@ -262,7 +262,8 @@ async function main(): Promise<void> {
 
         res
           .status(200)
-          .json({ message: "Retrieved all transaction logs successfully" });
+          .json({ message: "Retrieved all transaction logs successfully",
+                  data: result });
       } catch (error) {
         console.error("Error retrieving transaction logs:", error);
         res.status(500).json({ error: "Failed to retrieve transaction logs" });

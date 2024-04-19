@@ -41,10 +41,16 @@
          (json-payload (babel:octets-to-string response)))
     (format t "Response: ~a~%" json-payload)))
 
-(defun revoke-deployment (deployment-id)
+(defun revoke-deployment (deployment-id, reason, authorID)
   (let* ((url "http://localhost:3000/revokeDeployment")
-         (payload (json:encode-json `(("deploymentID" . ,deployment-id))))
-         (response (call-endpoint-api url :delete payload)))
+        (response (drakma:http-request
+                    url
+                    :method :post 
+                    :parameters `(("deploymentID" . ,deployment-id)
+                                  ("reason" . ,reason) 
+                                  ("authorID" . ,authorID))
+                    :content-type "application/json"))
+         (json-payload (babel:octets-to-string response)))
     (format t "Response: ~a~%" response)))
 
 (defun get-all-revocations ()
@@ -65,8 +71,12 @@
 
 (defun validate-revocation (revocation-id)
   (let* ((url "http://localhost:3000/validateRevocation")
-         (payload (json:encode-json `(("revocationID" . ,revocation-id))))
-         (response (call-endpoint-api url :post payload)))
+          (response (drakma:http-request
+                    url
+                    :method :post 
+                    :parameters `(("revocationID" . ,revocation-id))
+                    :content-type "application/json"))
+         (json-payload (babel:octets-to-string response)))
     (format t "Response: ~a~%" response)))
 
 (defun get-all-transaction-logs ()
@@ -111,7 +121,13 @@
            (format t "Enter deployment ID to revoke: ")
            (finish-output)
            (let ((deployment-id (read-line)))
-             (revoke-deployment deployment-id))))
+            (format t "Enter reason of revoke: ")
+            (finish-output)
+            (let ((reason (read-line)))
+              (format t "Enter author ID of revoke: ")
+              (finish-output)
+              (let ((authorID (read-line)))
+                (revoke-deployment deployment-id, reason, authorID))))
       (4 (get-all-revocations))
       (5 (progn
            (format t "Enter revocation ID: ")

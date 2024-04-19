@@ -221,6 +221,7 @@ async function main(): Promise<void> {
       try {
         // Extract data from the request body
         const { revocationID } = req.body;
+        console.log(req.body)
         console.log(revocationID);
         console.log(
           "\n--> Evaluate Transaction: ValidateRevocation, function returns true if revocation exists"

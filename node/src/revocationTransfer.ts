@@ -29,6 +29,10 @@ function toDate(timestamp: typeof TIMESTAMP) {
 
 const date = toDate(TIMESTAMP);
 
+function generateUniqueId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
 console.log(date);
 
 @Info({
@@ -111,7 +115,31 @@ export class AssetTransferContract extends Contract {
     return JSON.stringify(allResults);
   }
 
-   // CreateAsset issues a new asset to the world state with given details.
+  //This function handles a revocation of a deployment through being passed a deploymentID
+  @Transaction()
+  public async Revoke(
+    ctx: Context, 
+    deploymentID: string,
+    reason: string,
+    authorID: string
+  ): Promise<void>{
+    const exists = await this.ValidateDeployment(ctx, deploymentID);
+     if (!exists) {
+       throw new Error(`The does not exist, or already has been revoked`);
+     }
+     const id = generateUniqueId();
+     const revocation = {
+      targetDeploymentID: deploymentID,
+      reason: reason,
+      revocationID: id
+     }
+
+     this.CreateAsset(ctx, deploymentID, authorID, date, reason);
+     await ctx.stub.putState(
+      deploymentID,
+      Buffer.from(stringify(sortKeysRecursive(revocation)))
+    );
+  }
    @Transaction()
    public async Deployment(
      ctx: Context,

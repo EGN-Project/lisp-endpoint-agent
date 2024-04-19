@@ -136,9 +136,11 @@ export class AssetTransferContract extends Contract {
 
      this.CreateAsset(ctx, deploymentID, authorID, date, reason);
      await ctx.stub.putState(
-      deploymentID,
+      eploymentID,
       Buffer.from(stringify(sortKeysRecursive(revocation)))
     );
+
+    await ctx.stub.deleteState(deploymentID);
   }
    @Transaction()
    public async Deployment(
@@ -190,20 +192,6 @@ export class AssetTransferContract extends Contract {
    ): Promise<boolean> {
      const deploymentJSON = await ctx.stub.getState(deploymentID);
      return deploymentJSON && deploymentJSON.length > 0;
-   }
- 
-   @Transaction()
-   public async RevokeDeployment(
-     ctx: Context,
-     deploymentID: string
-   ): Promise<void> {
-     const deploymentExists = await this.ValidateDeployment(ctx, deploymentID);
-     if (!deploymentExists) {
-       throw new Error(`Deployment with ID ${deploymentID} does not exist`);
-     }
- 
-     // Delete the deployment from the ledger
-     await ctx.stub.deleteState(deploymentID);
    }
 
    // Stored TransactionExists returns true when asset with given ID exists in world state.

@@ -139,15 +139,17 @@ async function main(): Promise<void> {
     app.delete("/revokeDeployment", async (req, res) => {
       try {
         // Extract data from the request body
-        const { deploymentID } = req.body;
+        const { deploymentID, reason, authorID } = req.body;
 
         console.log(
           "\n--> Evaluate Transaction: ReadAsset, function returns asset attributes"
         );
 
         const resultBytes = await contract.evaluateTransaction(
-          "RevokeDeployment",
-          deploymentID
+          "Revoke",
+          deploymentID,
+          reason,
+          authorID
         );
 
         const resultJson = utf8Decoder.decode(resultBytes);

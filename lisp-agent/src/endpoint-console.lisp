@@ -41,7 +41,7 @@
          (json-payload (babel:octets-to-string response)))
     (format t "Response: ~a~%" json-payload)))
 
-(defun revoke-deployment (deployment-id, reason, authorID)
+(defun revoke-deployment (deployment-id reason authorID)
   (let* ((url "http://localhost:3000/revokeDeployment")
         (response (drakma:http-request
                     url

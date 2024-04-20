@@ -127,7 +127,7 @@
               (format t "Enter author ID of revoke: ")
               (finish-output)
               (let ((authorID (read-line)))
-                (revoke-deployment deployment-id, reason, authorID))))
+                (revoke-deployment deployment-id reason authorID))))))
       (4 (get-all-revocations))
       (5 (progn
            (format t "Enter revocation ID: ")

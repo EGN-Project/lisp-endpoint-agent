@@ -11,14 +11,9 @@ import { Revocation } from "./revocation";
 import { Deployment } from "./deployment";
 import { TransactionLog } from "./transactionLog";
 
-const TIMESTAMP = {
-  seconds: {
-    low: 1659172409, // Example value for seconds
-    high: 0, // High precision part, typically 0 for Hyperledger Fabric timestamps
-    unsigned: false, // Whether the value is unsigned or not
-  },
-  nanos: 567000000, // Example value for nanoseconds
-} as const;
+function getCurrentTimestamp() {
+  return Math.floor(Date.now() / 1000); // Convert milliseconds to seconds
+}
 
 function toDate(timestamp: typeof TIMESTAMP) {
   const milliseconds =
@@ -27,13 +22,10 @@ function toDate(timestamp: typeof TIMESTAMP) {
   return new Date(milliseconds);
 }
 
-const date = toDate(TIMESTAMP);
-
 function generateUniqueId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
-console.log(date);
 
 @Info({
   title: "AssetTransfer",
@@ -122,7 +114,7 @@ export class AssetTransferContract extends Contract {
     deploymentID: string,
     reason: string,
     authorID: string
-  ): Promise<void>{
+  ): Promise<String>{
     const exists = await this.ValidateDeployment(ctx, deploymentID);
      if (!exists) {
        throw new Error(`The does not exist, or already has been revoked`);
@@ -134,41 +126,86 @@ export class AssetTransferContract extends Contract {
       revocationID: id
      }
 
+     const currentTimestamp = getCurrentTimestamp();
+
+      const TIMESTAMP = {
+          seconds: {
+              low: currentTimestamp,
+              high: 0,
+              unsigned: false,
+          },
+          nanos: 0, // Reset nanoseconds to 0 for simplicity
+      } as const;
+
+      const date = toDate(TIMESTAMP);
+
      this.CreateAsset(ctx, deploymentID, authorID, date, reason);
      await ctx.stub.putState(
-      eploymentID,
+      deploymentID,
       Buffer.from(stringify(sortKeysRecursive(revocation)))
     );
 
     await ctx.stub.deleteState(deploymentID);
-  }
-   @Transaction()
-   public async Deployment(
-     ctx: Context,
-     authorID: string,
-     comment: string,
-     payload: string,
-     deploymentID: string
-   ): Promise<void> {
-     const exists = await this.ValidateDeployment(ctx, deploymentID);
-     if (exists) {
-       throw new Error(`The asset ${deploymentID} already exists`);
-     }
- 
-     const deployment = {
-       deploymentID: deploymentID,
-       comment: comment,
-       authorID: authorID,
-       payload: payload,
-     };
 
-     this.CreateAsset(ctx, deploymentID, authorID, date,comment);
-     // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
-     await ctx.stub.putState(
-       deploymentID,
-       Buffer.from(stringify(sortKeysRecursive(deployment)))
-     );
-   }
+    const jsonResponse = JSON.stringify({
+      status: "success",
+      message: `Deployment with ID ${deploymentID} revoked successfully`,
+    });
+
+    return jsonResponse;
+  }
+
+  @Transaction()
+  public async Deployment(
+    ctx: Context,
+    authorID: string,
+    comment: string,
+    payload: string,
+    deploymentID: string
+  ): Promise<string> {
+    const exists = await this.ValidateDeployment(ctx, deploymentID);
+    if (exists) {
+      throw new Error(`The asset ${deploymentID} already exists`);
+    }
+  
+    const currentTimestamp = getCurrentTimestamp();
+  
+    const TIMESTAMP = {
+      seconds: {
+        low: currentTimestamp,
+        high: 0,
+        unsigned: false,
+      },
+      nanos: 0, // Reset nanoseconds to 0 for simplicity
+    } as const;
+  
+    const date = toDate(TIMESTAMP);
+  
+    // Create a log of the deployment action
+    await this.CreateAsset(ctx, deploymentID, authorID, date, comment);
+  
+    // Store deployment details in the ledger
+    const deployment = {
+      deploymentID: deploymentID,
+      comment: comment,
+      authorID: authorID,
+      payload: payload,
+      time: date // Include timestamp in deployment object
+    };
+  
+    await ctx.stub.putState(
+      deploymentID,
+      Buffer.from(stringify(sortKeysRecursive(deployment)))
+    );
+  
+    const jsonResponse = JSON.stringify({
+      status: "success",
+      message: `Deployment with ID ${deploymentID} successfully posted`,
+    });
+  
+    return jsonResponse;
+  }
+  
  
    // ReadAsset returns the asset stored in the world state with given id.
    @Transaction(false)
@@ -211,11 +248,13 @@ export class AssetTransferContract extends Contract {
     description: string
   ): Promise<void> {
     const exists = await this.TransactionExists(ctx, ID);
-
+    console.log(ID);
+    let id : string = generateUniqueId();
     if (exists) {
       throw new Error(`The asset ${ID} already exists`);
     }
 
+    
     const transactionLog = {
       transactionID: ID,
       authorID,
@@ -268,11 +307,12 @@ export class AssetTransferContract extends Contract {
         record = JSON.parse(strValue);
       } catch (error: unknown) {
         console.log(error);
-        record = strValue;
+        //record = strValue;
       }
       if(record.transactionID !== undefined){
         allResults.push(record);
       }
+      
       result = await iterator.next();
     }
 

@@ -136,13 +136,13 @@ async function main(): Promise<void> {
     });
 
     // Post for remove Deployment By ID.
-    app.delete("/revokeDeployment", async (req, res) => {
+    app.post("/revokeDeployment", async (req, res) => {
       try {
         // Extract data from the request body
         const { deploymentID, reason, authorID } = req.body;
 
         console.log(
-          "\n--> Evaluate Transaction: ReadAsset, function returns asset attributes"
+          "\n--> Evaluate Transaction: Revoke Deployment"
         );
 
         const resultBytes = await contract.evaluateTransaction(
@@ -153,9 +153,8 @@ async function main(): Promise<void> {
         );
 
         const resultJson = utf8Decoder.decode(resultBytes);
-        const result = JSON.parse(resultJson);
 
-        console.log("*** Result:", result);
+        console.log("*** Result:", resultJson);
         gateway.close();
         res.status(200).json({ message: "Deployment retrieved successfully" });
       } catch (error) {
@@ -250,7 +249,7 @@ async function main(): Promise<void> {
     app.get("/transaction-logs", async (_req, res) => {
       try {
         console.log(
-          "\n--> Evaluate Transaction: GetAllDeployments, function returns all the current deployments on the ledger"
+          "\n--> Evaluate Transaction: Transaction logs, function returns all the current deployments on the ledger"
         );
 
         const resultBytes = await contract.evaluateTransaction(

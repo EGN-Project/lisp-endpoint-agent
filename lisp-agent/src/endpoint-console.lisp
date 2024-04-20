@@ -54,10 +54,9 @@
     (format t "Response: ~a~%" response)))
 
 (defun get-all-revocations ()
-  (let* ((url "http://localhost:3000/getAllRevocations")
-         (response (call-endpoint-api url :get))
-         (json-payload (babel:octets-to-string response)))
-    (format t "Response: ~a~%" json-payload)))
+   (let* ((url "http://localhost:3000/getAllRevocations")
+         (response (call-endpoint-api url :get)))
+    (format t "Response: ~a~%" response)))
 
 (defun get-revocation-by-id (revocation-id)
   (let* ((url "http://localhost:3000/getRevocationByID")

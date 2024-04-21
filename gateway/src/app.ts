@@ -41,6 +41,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const deploymentID = `deployment${Date.now()}`;
 const revocationID = `revocation${Date.now()}`;
 
+function generateUniqueId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
 async function main(): Promise<void> {
   await displayInputParameters();
 
@@ -100,6 +104,14 @@ async function main(): Promise<void> {
           deploymentID
         );
 
+        const logID = generateUniqueId();
+        await contract.submitTransaction(
+          "CreateAsset",
+          logID,
+          authorID, 
+          "Deployment"
+          )
+
         console.log("*** Transaction committed successfully");
         gateway.close();
         res.status(200).json({ message: "Deployment successful" });
@@ -151,6 +163,14 @@ async function main(): Promise<void> {
           reason,
           authorID
         );
+
+        const logID = generateUniqueId();
+        await contract.submitTransaction(
+          "CreateAsset",
+          logID,
+          authorID, 
+          "Revoke"
+          )
 
         const resultJson = utf8Decoder.decode(resultBytes);
 

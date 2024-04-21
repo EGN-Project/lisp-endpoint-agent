@@ -15,7 +15,7 @@ function getCurrentTimestamp() {
   return Math.floor(Date.now() / 1000); // Convert milliseconds to seconds
 }
 
-function toDate(timestamp: typeof TIMESTAMP) {
+function toDate(timestamp) {
   const milliseconds =
     (timestamp.seconds.low + timestamp.nanos / 1000000 / 1000) * 1000;
 
@@ -25,7 +25,6 @@ function toDate(timestamp: typeof TIMESTAMP) {
 function generateUniqueId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
-
 
 @Info({
   title: "AssetTransfer",
@@ -139,13 +138,12 @@ export class AssetTransferContract extends Contract {
 
       const date = toDate(TIMESTAMP);
 
-     this.CreateAsset(ctx, deploymentID, authorID, date, reason);
-     await ctx.stub.putState(
-      deploymentID,
-      Buffer.from(stringify(sortKeysRecursive(revocation)))
-    );
+      await ctx.stub.deleteState(deploymentID);
 
-    await ctx.stub.deleteState(deploymentID);
+      await ctx.stub.putState(
+        deploymentID,
+        Buffer.from(stringify(sortKeysRecursive(revocation)))
+      );
 
     const jsonResponse = JSON.stringify({
       status: "success",
@@ -182,7 +180,7 @@ export class AssetTransferContract extends Contract {
     const date = toDate(TIMESTAMP);
   
     // Create a log of the deployment action
-    await this.CreateAsset(ctx, deploymentID, authorID, date, comment);
+    //await this.CreateAsset(ctx, deploymentID, authorID, date, comment);
   
     // Store deployment details in the ledger
     const deployment = {
@@ -244,21 +242,32 @@ export class AssetTransferContract extends Contract {
     ctx: Context,
     ID: string,
     authorID: string,
-    time: Date,
     description: string
   ): Promise<void> {
     const exists = await this.TransactionExists(ctx, ID);
     console.log(ID);
-    let id : string = generateUniqueId();
     if (exists) {
       throw new Error(`The asset ${ID} already exists`);
     }
+
+    const currentTimestamp = getCurrentTimestamp();
+  
+    const TIMESTAMP = {
+      seconds: {
+        low: currentTimestamp,
+        high: 0,
+        unsigned: false,
+      },
+      nanos: 0, // Reset nanoseconds to 0 for simplicity
+    } as const;
+  
+    const date = toDate(TIMESTAMP);
 
     
     const transactionLog = {
       transactionID: ID,
       authorID,
-      time: time,
+      time: date,
       description: description,
     };
 

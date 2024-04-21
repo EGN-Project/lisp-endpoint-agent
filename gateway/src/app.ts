@@ -96,6 +96,7 @@ async function main(): Promise<void> {
           "\n--> Submit Transaction: Deploy, creates new deployment with ID, Description, Author, and Code"
         );
 
+        console.log("Creating Deployment");
         await contract.submitTransaction(
           "Deployment",
           authorID,
@@ -104,9 +105,10 @@ async function main(): Promise<void> {
           deploymentID
         );
 
+        console.log("Creating transaction log");
         const logID = generateUniqueId();
         await contract.submitTransaction(
-          "CreateAsset",
+          "CreateLog",
           logID,
           authorID, 
           "Deployment"
@@ -150,38 +152,32 @@ async function main(): Promise<void> {
     // Post for remove Deployment By ID.
     app.post("/revokeDeployment", async (req, res) => {
       try {
-        // Extract data from the request body
+        //Extract data from the request body
         const { deploymentID, reason, authorID } = req.body;
-
-        console.log(
-          "\n--> Evaluate Transaction: Revoke Deployment"
-        );
-
-        const resultBytes = await contract.evaluateTransaction(
-          "Revoke",
-          deploymentID,
-          reason,
-          authorID
-        );
-
-        const logID = generateUniqueId();
-        await contract.submitTransaction(
-          "CreateAsset",
-          logID,
-          authorID, 
-          "Revoke"
-          )
-
-        const resultJson = utf8Decoder.decode(resultBytes);
-
-        console.log("*** Result:", resultJson);
+    
+        console.log("\n--> Evaluate Transaction: Revoke Deployment");
+    
+        console.log("Deleting Deployment First");
+        await contract.submitTransaction("DeleteDeployment", deploymentID);
+    
+        const logIDOne = generateUniqueId();
+        console.log("Create Revocation");
+        await contract.submitTransaction("Revoke", deploymentID, reason, authorID, logIDOne);
+    
+        const title = "Revocation";
+        console.log("Creating transaction log");
+        const logIDTwo = generateUniqueId();
+        await contract.submitTransaction("CreateLog", logIDTwo, authorID, title);
+    
+        console.log("*** Result: Deployment revoked successfully");
         gateway.close();
-        res.status(200).json({ message: "Deployment retrieved successfully" });
+        res.status(200).json({ message: "Deployment revoked successfully" });
       } catch (error) {
-        console.error("Error retrieving deployment:", error);
-        res.status(500).json({ error: "Failed to retrieve deployment" });
+        console.error("Error revoking deployment:", error);
+        res.status(500).json({ error: "Failed to revoke deployment" });
       }
     });
+    
 
     // GET endpoint for retrieving all revocations
     app.get("/getAllRevocations", async (_req, res) => {

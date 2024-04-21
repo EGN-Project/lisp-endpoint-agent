@@ -9,5 +9,8 @@ export class Revocation {
   public reason: string;
 
   @Property()
+  public authorID: string;
+
+  @Property()
   public RevocationID: string;
 }

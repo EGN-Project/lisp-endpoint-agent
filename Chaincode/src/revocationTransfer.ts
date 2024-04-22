@@ -37,6 +37,7 @@ export class AssetTransferContract extends Contract {
       {
         targetDeploymentID: "123",
         reason: "example",
+        authorID: "ExampleUser",
         RevocationID: "1",
       },
     ];
@@ -110,47 +111,43 @@ export class AssetTransferContract extends Contract {
   @Transaction()
   public async Revoke(
     ctx: Context, 
-    deploymentID: string,
+    targetDeploymentID: string,
     reason: string,
-    authorID: string
+    authorID: string,
+    RevocationID: string
   ): Promise<String>{
-    const exists = await this.ValidateDeployment(ctx, deploymentID);
-     if (!exists) {
-       throw new Error(`The does not exist, or already has been revoked`);
-     }
-     const id = generateUniqueId();
+  
      const revocation = {
-      targetDeploymentID: deploymentID,
+      targetDeploymentID: targetDeploymentID,
       reason: reason,
-      revocationID: id
+      authorID: authorID,
+      RevocationID: RevocationID
      }
 
-     const currentTimestamp = getCurrentTimestamp();
-
-      const TIMESTAMP = {
-          seconds: {
-              low: currentTimestamp,
-              high: 0,
-              unsigned: false,
-          },
-          nanos: 0, // Reset nanoseconds to 0 for simplicity
-      } as const;
-
-      const date = toDate(TIMESTAMP);
-
-      await ctx.stub.deleteState(deploymentID);
-
-      await ctx.stub.putState(
-        deploymentID,
-        Buffer.from(stringify(sortKeysRecursive(revocation)))
-      );
+     await ctx.stub.putState(
+      targetDeploymentID,
+      Buffer.from(stringify(sortKeysRecursive(revocation)))
+    );
 
     const jsonResponse = JSON.stringify({
       status: "success",
-      message: `Deployment with ID ${deploymentID} revoked successfully`,
+      message: `Deployment with ID ${targetDeploymentID} revoked successfully`,
     });
 
     return jsonResponse;
+  }
+
+  @Transaction()
+  public async DeleteDeployment(
+    ctx: Context,
+    deploymentID: string
+  ): Promise<void>{
+    const exists = await this.ValidateDeployment(ctx, deploymentID);
+    if (!exists) {
+      throw new Error(`The asset ${deploymentID} does not exist`);
+    }
+
+    await ctx.stub.deleteState(deploymentID);
   }
 
   @Transaction()
@@ -179,7 +176,6 @@ export class AssetTransferContract extends Contract {
   
     const date = toDate(TIMESTAMP);
   
-    // Create a log of the deployment action
     //await this.CreateAsset(ctx, deploymentID, authorID, date, comment);
   
     // Store deployment details in the ledger
@@ -238,7 +234,7 @@ export class AssetTransferContract extends Contract {
   }
 
   @Transaction()
-  public async CreateAsset(
+  public async CreateLog(
     ctx: Context,
     ID: string,
     authorID: string,
@@ -321,6 +317,7 @@ export class AssetTransferContract extends Contract {
       if(record.transactionID !== undefined){
         allResults.push(record);
       }
+      
       
       result = await iterator.next();
     }

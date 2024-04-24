@@ -142,7 +142,7 @@ async function main(): Promise<void> {
 
         console.log("*** Result:", result);
         gateway.close();
-        res.status(200).json({ message: "Deployment retrieved successfully" });
+        res.status(200).json({ message: "Deployment retrieved successfully: ", Result: result });
       } catch (error) {
         console.error("Error retrieving deployment:", error);
         res.status(500).json({ error: "Failed to retrieve deployment" });

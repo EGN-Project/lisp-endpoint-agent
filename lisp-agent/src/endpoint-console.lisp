@@ -2,6 +2,9 @@
 (ql:quickload "cl-json")
 (ql:quickload "babel")
 (ql:quickload "flexi-streams")
+(ql:quickload "json")
+(ql:quickload "jsown")
+(ql:quickload "jsown-utils")
 
 
 (defun call-endpoint-api (url method &optional payload)
@@ -31,6 +34,28 @@
          (response-string (babel:octets-to-string response)))
     (format t "Response: ~a~%" response-string)))
 
+; (defun get-deployment-by-id (deployment-id)
+;   (let* ((url "http://localhost:3000/getDeploymentByID")
+;          (response (drakma:http-request
+;                     url
+;                     :method :post 
+;                     :parameters `(("deploymentID" . ,deployment-id))
+;                     :content-type "application/json"))
+;          (response-str (babel:octets-to-string response)))
+;     (format t "Raw response: ~a~%" response-str) ; Print raw response for inspection
+;     (let* ((lines (split-sequence:split-sequence #\Newline response-str)))
+;       (format t "Application Gateway Log:~%~a~%" (first lines))
+;       (handler-case
+;           (let* ((result-line (position "*** Result:" lines :test 'string=)))
+;             (when result-line
+;               (let* ((start-pos-json (position "{\"" lines :start result-line)))
+;                 (when start-pos-json
+;                   (let* ((end-pos-json (position "}" lines :start start-pos-json :from-end t)))
+;                     (when end-pos-json
+;                       (let* ((json-payload (subseq (nth-value 1 (position "{\"" lines :start result-line)) start-pos-json (1+ end-pos-json))))
+;                         (format t "JSON payload:~%~a~%" (jsown:pprint-json (jsown:parse json-payload))))))))))))))
+
+
 (defun get-deployment-by-id (deployment-id)
   (let* ((url "http://localhost:3000/getDeploymentByID")
          (response (drakma:http-request
@@ -38,8 +63,15 @@
                     :method :post 
                     :parameters `(("deploymentID" . ,deployment-id))
                     :content-type "application/json"))
-         (json-payload (babel:octets-to-string response)))
-    (format t "Response: ~a~%" json-payload)))
+         (response-str (babel:octets-to-string response))
+         (json-data (json:decode-json-from-string response-str)))
+    (format t "Raw response: ~a~%" response-str) ; Print raw response for inspection
+    (format t "Application Gateway Log:~%~a~%" (json:getf json-data 'message))
+    (let ((result (json:getf json-data 'Result)))
+      (when result
+        (format t "Result:~%")
+        (format t "JSON payload:~%~a~%" (json:encode-json-to-string result)))))) ; Convert result to a user-friendly JSON string
+
 
 (defun revoke-deployment (deployment-id reason authorID)
   (let* ((url "http://localhost:3000/revokeDeployment")
@@ -51,7 +83,7 @@
                                   ("authorID" . ,authorID))
                     :content-type "application/json"))
          (json-payload (babel:octets-to-string response)))
-    (format t "Response: ~a~%" response)))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun get-all-revocations ()
    (let* ((url "http://localhost:3000/getAllRevocations")
@@ -76,7 +108,7 @@
                     :parameters `(("revocationID" . ,revocation-id))
                     :content-type "application/json"))
          (json-payload (babel:octets-to-string response)))
-    (format t "Response: ~a~%" response)))
+    (format t "Response: ~a~%" json-payload)))
 
 (defun get-all-transaction-logs ()
   (let* ((url "http://localhost:3000/transaction-logs")
